@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 public class Login extends AppCompatActivity {
 
     private EditText userName, userPwd;
@@ -28,6 +32,13 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //默认初始化
+        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
+        /**
+         * 默认初始化
+         * 有更加细致的初始化待选项，以后再进行添加
+         */
 
         //1.获取各组件ID
         userName = findViewById(R.id.UserID);
@@ -105,6 +116,9 @@ public class Login extends AppCompatActivity {
                 Intent it = new Intent(Login.this, Register.class);
                 //启动注册
                 Login.this.startActivityForResult(it, 1);
+
+                //用户信息保存到服务器
+
             }
         });
     }
