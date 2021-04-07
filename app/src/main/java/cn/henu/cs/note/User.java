@@ -11,6 +11,15 @@ public class User extends BmobObject {
     private int id;
     private String username;
     private String password;
+    private int phoneNum;
+
+    public void setPhoneNum(int phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public int getPhoneNum() {
+        return phoneNum;
+    }
 
     public int getId() {
         return id;
@@ -41,14 +50,29 @@ public class User extends BmobObject {
         this.password = password;
     }
 
+    public User(String username, String password, int phoneNum) {
+        this.username = username;
+        this.password = password;
+        this.phoneNum = phoneNum;
+    }
+
     public User(int id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-        //封装保存方法 未实现
-//    public void save(String username,String password,Login){
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    //封装保存方法 未实现
+//    public void save(String username,String password,Login ){
 //        User admin = new User(username,password);
 ////        admin.setId(1);
 //        admin.setUsername(username);
@@ -58,10 +82,10 @@ public class User extends BmobObject {
 //            public void done(String objectId, BmobException e) {
 //                if(e==null){
 ////                            System.out.println("添加数据成功，返回objectId为："+objectId);
-//                    Toast.makeText(,"注册成功",Toast.LENGTH_LONG).show();
+////                    Toast.makeText(Register.this,"注册成功",Toast.LENGTH_LONG).show();
 //                }else{
 ////                            System.out.println("创建数据失败：" + e.getMessage());
-//                    Toast.makeText(,"注册失败：" ,Toast.LENGTH_LONG).show();
+////                    Toast.makeText(Register.this,"注册失败：" ,Toast.LENGTH_LONG).show();
 //                }
 //            }
 //        });

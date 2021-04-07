@@ -116,7 +116,6 @@ public class Login extends AppCompatActivity {
                 Intent it = new Intent(Login.this, Register.class);
                 //启动注册
                 Login.this.startActivityForResult(it, 1);
-
                 //用户信息保存到服务器
 
             }

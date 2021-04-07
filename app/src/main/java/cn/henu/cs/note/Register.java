@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 public class Register extends AppCompatActivity {
 
     private Button regBut, regCancel;
@@ -179,5 +182,18 @@ public class Register extends AppCompatActivity {
 //            return false;
 //        }
         return true;
+    }
+
+    /**
+     * 新增一条数据
+     */
+    private void save(String uname, String pwd, int pNum){
+        User user = new User(uname, pwd, pNum);
+        user.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+
+            }
+        });
     }
 }
