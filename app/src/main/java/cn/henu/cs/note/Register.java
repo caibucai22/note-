@@ -12,6 +12,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 public class Register extends AppCompatActivity {
 
     private Button regBut, regCancel;
@@ -25,6 +32,9 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+
+        //默认初始化
+        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
 
         //1.获取各组件ID
         regBut = findViewById(R.id.regBut);
@@ -82,7 +92,24 @@ public class Register extends AppCompatActivity {
                 checkPhoneNum();
                 isSecurityCodeRight();
                 if (checkPhoneNum() && checkUserName() && checkPwd() && isSecurityCodeRight()) {
-                    Toast.makeText(Register.this, "注册成功!", Toast.LENGTH_SHORT).show();
+
+                    //用户信息保存到数据库  成功实现
+                    BmobUser signuser = new BmobUser();
+                    signuser.setUsername(userName.getText().toString());
+                    signuser.setPassword(userPwd1.getText().toString());
+                    signuser.signUp(new SaveListener<BmobUser>() {
+                        @Override
+                        public void done(BmobUser bmobUser, BmobException e) {
+                            if (e == null) {
+                                Toast.makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(Register.this, "注册失败", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+//                    Toast.makeText(Register.this, "注册成功!", Toast.LENGTH_SHORT).show();
+
                     //注册成功跳转回登陆界面
                     Intent it = new Intent(Register.this, Login.class);
                     Register.this.startActivityForResult(it, 1);

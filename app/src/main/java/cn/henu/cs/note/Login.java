@@ -14,7 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -84,6 +87,9 @@ public class Login extends AppCompatActivity {
                 //获得用户输入的用户名或者密码
                 userNameS = userName.getText().toString();
                 userPwdS = userPwd.getText().toString();
+
+
+
                 if (userNameS.equals("admin") && userPwdS.equals("admin")) {//密码和用户名都不正确
                     //记住密码
                     //未能实现
@@ -100,7 +106,30 @@ public class Login extends AppCompatActivity {
                     Intent it = new Intent(Login.this, Home.class);
                     //启动主界面
                     Login.this.startActivityForResult(it, 1);
-                    Toast.makeText(Login.this, "登陆成功!", Toast.LENGTH_SHORT).show();
+
+                    //从服务器数据库获取数据进行验证登录
+//                    User loginer = new User();
+
+                    BmobUser loginer = new BmobUser();
+                    loginer.setUsername(userNameS);
+                    loginer.setPassword(userPwdS);
+                    loginer.login(new SaveListener<BmobUser>() {
+                    @Override
+                    public void done(BmobUser bmobUser, BmobException e) {
+                        if (e == null) {
+                            BmobUser user = BmobUser.getCurrentUser(User.class);
+                            Toast.makeText(Login.this, "登录成功：" + user.getUsername(), Toast.LENGTH_LONG).show();
+                            //实例化主界面
+                            Intent it = new Intent(Login.this, Home.class);
+                            //启动主界面
+                            Login.this.startActivityForResult(it, 1);
+                        } else {
+                            System.out.println(e.getMessage());
+                            Toast.makeText(Login.this, "登录失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
                 } else if (userNameS.equals("") || userPwdS.equals("")) {//用户名或密码为空
                     Toast.makeText(Login.this, "用户名/密码不能为空!", Toast.LENGTH_SHORT).show();
                 } else {//密码或用户名错误
