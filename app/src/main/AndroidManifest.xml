@@ -39,6 +39,8 @@
         <activity
             android:name=".Register"
             android:label="注册界面" />
+        <activity android:name=".Settings"
+            android:label="设置"/>
 
         <!--    配置ContentProvide-->
         <provider

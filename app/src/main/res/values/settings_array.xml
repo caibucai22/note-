@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="settings_items">
+         <item>账号安全</item>
+         <item>深色模式</item>
+         <item>清除缓存</item>
+         <item>检查更新</item>
+     </string-array>
+</resources>
