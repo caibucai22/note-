@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 
@@ -57,7 +55,7 @@ public class Register extends AppCompatActivity {
                 if (iscilck) {
                     iscilck = false;
                     userPwd1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    regPwdShowBut1.setBackgroundResource(R.drawable.pwdshow);
+                    regPwdShowBut1.setBackgroundResource(R.drawable.login_or_register_pwdshow);
                 } else {
                     iscilck = true;
                     userPwd1.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -74,7 +72,7 @@ public class Register extends AppCompatActivity {
                 if (iscilck) {
                     iscilck = false;
                     userPwd2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    regPwdShowBut2.setBackgroundResource(R.drawable.pwdshow);
+                    regPwdShowBut2.setBackgroundResource(R.drawable.login_or_register_pwdshow);
                 } else {
                     iscilck = true;
                     userPwd2.setTransformationMethod(PasswordTransformationMethod.getInstance());
@@ -104,11 +102,10 @@ public class Register extends AppCompatActivity {
                             if (e == null) {
                                 Toast.makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(Register.this, "注册失败", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Register.this, "注册失败"+e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-
 //                    Toast.makeText(Register.this, "注册成功!", Toast.LENGTH_SHORT).show();
 
                     //注册成功跳转回登陆界面
@@ -184,7 +181,6 @@ public class Register extends AppCompatActivity {
         //1.判断长度
         if (pnum.length() == 11) {
             return true;
-
         } else {
             popInfor += "手机号输入错误！！！\n";
             return false;

@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,16 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 public class Login extends AppCompatActivity {
@@ -76,7 +68,7 @@ public class Login extends AppCompatActivity {
                 if (iscilck) {
                     iscilck = false;
                     userPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    pwdImageBut.setBackgroundResource(R.drawable.pwdshow);
+                    pwdImageBut.setBackgroundResource(R.drawable.login_or_register_pwdshow);
                 } else {
                     iscilck = true;
                     userPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());

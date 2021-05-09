@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Note">
         <activity
-            android:name=".Login"
+            android:name=".Home"
             android:label="Note++">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,11 +34,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Home"
+            android:name=".Login"
             android:label="Home" />
         <activity
             android:name=".Register"
             android:label="注册界面" />
+        <activity android:name=".MyInterface" />
 
         <!--    配置ContentProvide-->
         <provider
