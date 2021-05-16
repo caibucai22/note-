@@ -39,6 +39,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 //    bomb后端云依赖库
     implementation 'cn.bmob.android:bmob-sdk:3.7.8'
