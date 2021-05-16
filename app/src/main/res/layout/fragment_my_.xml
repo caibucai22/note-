@@ -148,6 +148,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置"/>
+<!--    测试一下 settings 页面-->
+
     <ListView
         android:id="@+id/my_fragment_myListView"
         android:layout_width="match_parent"

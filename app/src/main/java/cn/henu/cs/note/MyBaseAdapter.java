@@ -44,12 +44,4 @@ public class MyBaseAdapter extends BaseAdapter {
         this.data = data;
         this.mcontext = mContext;
     }
-
-    private List<Map<String,Object>> getData(){
-        List<Map<String,Object>> list = new ArrayList<Map<String, Object>>();
-        Map<String,Object> map = new HashMap<String, Object>();
-
-
-        return list;
-    }
 }

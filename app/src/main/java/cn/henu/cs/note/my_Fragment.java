@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,10 +24,13 @@ import java.util.ArrayList;
  */
 public class my_Fragment extends Fragment {
 
+    // 测试设置页面实现情况 实现button 后跳转
+    private Button button;
+
     private ListView listView;
     //ListView所需的数据
-    private String[] itemNames = {"我的收藏", "与我们联系", "设置", "退出登录"};
-    private Integer[] itemIcons = {R.drawable.myloveicon, R.drawable.chet_with_us, R.drawable.config, R.drawable.myinterface_logout};
+    private String[] itemNames = {"我的收藏", "设置", "与我们联系", "退出登录"};
+    private Integer[] itemIcons = {R.drawable.myloveicon, R.drawable.config, R.drawable.chet_with_us, R.drawable.myinterface_logout};
 
     private MyArrayDataAdapter adapter;
     private View contentView;
@@ -67,9 +72,8 @@ public class my_Fragment extends Fragment {
 
     private void demo() {
 
-
-
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,17 @@ public class my_Fragment extends Fragment {
         adapter = new MyArrayDataAdapter();
         listView = contentView.findViewById(R.id.my_fragment_myListView);
         //listView.setAdapter(adapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                switch (position){
+//                    case 0:break;
+//                    case 1:break;
+//                    case 2:break;
+//                    case 3:break;
+//                }
+//            }
+//        });
         return contentView;
     }
 
@@ -125,8 +140,8 @@ public class my_Fragment extends Fragment {
                 viewHolder = (MyViewHolder) convertView.getTag();
             }
 
-            viewHolder.itemName.setText(itemNames[position]);
-            viewHolder.imageView.setImageResource(itemIcons[position]);
+//            viewHolder.itemName.setText(itemNames[position]);
+//            viewHolder.imageView.setImageResource(itemIcons[position]);
             return convertView;
         }
     }

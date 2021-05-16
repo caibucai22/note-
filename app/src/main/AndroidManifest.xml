@@ -20,12 +20,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:lab:el="@string/app_name"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Note">
         <activity
-            android:name=".Home"
+            android:name=".Login"
             android:label="Note++">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,12 +33,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login"
-            android:label="Home" />
+
+        <activity android:name=".Home"
+            android:label="home"/>
+
+<!--        <activity-->
+<!--            android:name=".Login"-->
+<!--            android:label="Home" />-->
         <activity
             android:name=".Register"
             android:label="注册界面" />
+        <activity android:name=".Settings"
+            android:label="设置页面"/>
         <activity android:name=".MyInterface" />
         <!--    配置ContentProvide-->
         <provider
