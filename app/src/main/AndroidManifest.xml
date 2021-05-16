@@ -25,7 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Note">
         <activity
+<<<<<<< HEAD
             android:name=".Login"
+=======
+            android:name=".activity.HomeActivity"
+>>>>>>> refs/remotes/origin/dev
             android:label="Note++">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
         <activity android:name=".Home"
             android:label="home"/>
@@ -40,12 +45,21 @@
 <!--        <activity-->
 <!--            android:name=".Login"-->
 <!--            android:label="Home" />-->
+=======
         <activity
-            android:name=".Register"
+            android:name=".activity.LoginActivity"
+            android:label="Home" />
+>>>>>>> refs/remotes/origin/dev
+        <activity
+            android:name=".activity.RegisterActivity"
             android:label="注册界面" />
+<<<<<<< HEAD
         <activity android:name=".Settings"
             android:label="设置页面"/>
         <activity android:name=".MyInterface" />
+=======
+
+>>>>>>> refs/remotes/origin/dev
         <!--    配置ContentProvide-->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"

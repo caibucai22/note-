@@ -85,10 +85,10 @@ public class User extends BmobUser {
     }
 
     //封装保存方法 未实现
-//    public void save(String username,String password,Login ){
+//    public void save(String username,String password,LoginActivity ){
 
     //封装保存方法 未实现
-//    public void save(String username,String password,Login){
+//    public void save(String username,String password,LoginActivity){
 //        User admin = new User(username,password);
 ////        admin.setId(1);
 //        admin.setUsername(username);
@@ -98,10 +98,10 @@ public class User extends BmobUser {
 //            public void done(String objectId, BmobException e) {
 //                if(e==null){
 ////                            System.out.println("添加数据成功，返回objectId为："+objectId);
-////                    Toast.makeText(Register.this,"注册成功",Toast.LENGTH_LONG).show();
+////                    Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
 //                }else{
 ////                            System.out.println("创建数据失败：" + e.getMessage());
-////                    Toast.makeText(Register.this,"注册失败：" ,Toast.LENGTH_LONG).show();
+////                    Toast.makeText(RegisterActivity.this,"注册失败：" ,Toast.LENGTH_LONG).show();
 //                }
 //            }
 //        });

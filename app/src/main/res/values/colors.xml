@@ -11,4 +11,7 @@
     <color name="grey">#d3d3d3</color>
     <color name="blue">#23cae4</color>
     <color name="text_gray">#a0a0a0</color>
+    <color name="item_note_gray">#797979</color>
+    <color name="item_note_white">#f6f6f6</color>
 </resources>
+>>>>>>> refs/remotes/origin/dev

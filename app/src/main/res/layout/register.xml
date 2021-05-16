@@ -96,7 +96,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/pwdunshow"
+            android:background="@drawable/pwdshow_select"
             android:textOff=""
             android:textOn="" />
 
@@ -142,7 +142,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/pwdunshow"
+            android:background="@drawable/pwdshow_select"
             android:textOff=""
             android:textOn="" />
     </LinearLayout>

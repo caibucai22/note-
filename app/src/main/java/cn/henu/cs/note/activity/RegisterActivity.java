@@ -1,4 +1,4 @@
-package cn.henu.cs.note;
+package cn.henu.cs.note.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,21 +17,26 @@ import cn.bmob.v3.BmobUser;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.henu.cs.note.R;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private Button regBut, regCancel;
     private ImageView regPwdShowBut1, regPwdShowBut2;
     private EditText userName, userPwd1, userPwd2;//userPwd1是用户输入的密码，  userPwd2是确认密码
     private EditText phoneNum, securityCode;
+    private Boolean isSelected = false;
     String uname, pwd1, pwd2, pnum, scode;//用于获取用户输入
     String popInfor = "";//提示信息
     String trueSCode;//真正的验证码
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+    @Override
+    protected int initLayout() {
+        return R.layout.register;
+    }
 
+    @Override
+    protected void initView() {
         //默认初始化
         Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
 
@@ -45,40 +50,36 @@ public class Register extends AppCompatActivity {
         userPwd2 = findViewById(R.id.regUserPwd2);
         phoneNum = findViewById(R.id.regPhoneNum);
         securityCode = findViewById(R.id.securityCode);
+    }
 
+    @Override
+    protected void initData() {
         //2.注册小眼睛（密码显示）监听器
         regPwdShowBut1.setOnClickListener(new View.OnClickListener() {
-            boolean iscilck = true;//按钮状态
-
             @Override
             public void onClick(View v) {
-                if (iscilck) {
-                    iscilck = false;
+                if (isSelected) {
+                    isSelected = false;
                     userPwd1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    regPwdShowBut1.setBackgroundResource(R.drawable.login_or_register_pwdshow);
                 } else {
-                    iscilck = true;
+                    isSelected = true;
                     userPwd1.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    regPwdShowBut1.setBackgroundResource(R.drawable.pwdunshow);
                 }
-
+                regPwdShowBut1.setSelected(!isSelected);
             }
         });
         regPwdShowBut2.setOnClickListener(new View.OnClickListener() {
-            boolean iscilck = true;//按钮状态
 
             @Override
             public void onClick(View v) {
-                if (iscilck) {
-                    iscilck = false;
+                if (isSelected) {
+                    isSelected = false;
                     userPwd2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    regPwdShowBut2.setBackgroundResource(R.drawable.login_or_register_pwdshow);
                 } else {
-                    iscilck = true;
+                    isSelected = true;
                     userPwd2.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    regPwdShowBut2.setBackgroundResource(R.drawable.pwdunshow);
                 }
-
+                regPwdShowBut2.setSelected(!isSelected);
             }
         });
 
@@ -100,20 +101,17 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void done(BmobUser bmobUser, BmobException e) {
                             if (e == null) {
-                                Toast.makeText(Register.this, "注册成功", Toast.LENGTH_LONG).show();
+                                showToast("注册成功");
                             } else {
-                                Toast.makeText(Register.this, "注册失败"+e.getMessage(), Toast.LENGTH_LONG).show();
+                                showToast("注册失败"+ e.getMessage());
                             }
                         }
                     });
-//                    Toast.makeText(Register.this, "注册成功!", Toast.LENGTH_SHORT).show();
-
                     //注册成功跳转回登陆界面
-                    Intent it = new Intent(Register.this, Login.class);
-                    Register.this.startActivityForResult(it, 1);
+                    navigateTo(LoginActivity.class);
                 } else {
                     popInfor.substring(0, popInfor.length() - 1);
-                    Toast.makeText(Register.this, popInfor, Toast.LENGTH_LONG).show();
+                    showToast(popInfor);
                 }
                 popInfor = "";
             }
@@ -122,8 +120,7 @@ public class Register extends AppCompatActivity {
         regCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(Register.this, Login.class);
-                Register.this.startActivityForResult(it, 1);
+                navigateTo(LoginActivity.class);
             }
         });
     }

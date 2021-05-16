@@ -1,4 +1,4 @@
-package cn.henu.cs.note;
+package cn.henu.cs.note.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

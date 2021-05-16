@@ -1,18 +1,10 @@
-package cn.henu.cs.note;
+package cn.henu.cs.note.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -21,7 +13,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
-public class Home extends AppCompatActivity implements View.OnClickListener {
+import cn.henu.cs.note.adapter.MyFragmentPagerAdapter;
+import cn.henu.cs.note.R;
+import cn.henu.cs.note.fragment.favorites_Fragment;
+import cn.henu.cs.note.fragment.home_fragment;
+import cn.henu.cs.note.fragment.my_Fragment;
+
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ViewPager2 myViewPager2;
     //底部导航栏的组件
     private LinearLayout homeLLayout, favoritesLLayout, myLLayout;
@@ -49,18 +47,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 //        }
 //        return super.onOptionsItemSelected(item);
 //    }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
-
-        initViewPage();
-        initBottomComponent();
+    protected int initLayout() {
+        return R.layout.home;
     }
 
-    //初始化底部导航栏组件
-    void initBottomComponent() {
+    @Override
+    protected void initView() {
         homeLLayout = findViewById(R.id.id_bottom_home);
         favoritesLLayout = findViewById(R.id.id_bottom_favorites);
         myLLayout = findViewById(R.id.id_bottom_my);
@@ -84,12 +77,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         //给当前位置上色
         iv_Current.setSelected(true);
         t_Current.setTextColor(ContextCompat.getColor(this, R.color.blue));
+
+        myViewPager2 = findViewById(R.id.viewPager);
     }
 
-    //向ViewPager中添加fragment（初始化）
-    void initViewPage() {
-        myViewPager2 = findViewById(R.id.viewPager);
-        //创建一个Fragment数组(向量)存放资源
+    @Override
+    protected void initData() {
+//创建一个Fragment数组(向量)存放资源
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new home_fragment());
         fragments.add(new favorites_Fragment());
@@ -112,9 +106,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
             }
-        });
 
+        });
     }
+
 
     private void changeTab(int id) {
         //先把之前的颜色修改掉
