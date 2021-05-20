@@ -1,5 +1,6 @@
-package cn.henu.cs.note.fragment;
+package cn.henu.cs.note;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,16 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.util.List;
-
-import cn.henu.cs.note.R;
+import java.util.ArrayList;
 
 public class my_Fragment extends Fragment {
 
-    private ListView listView1, listView2, listView3, listView4;
+    // 测试设置页面实现情况 实现button 后跳转
+    private Button button;
 
     public my_Fragment() {
         // Required empty public constructor

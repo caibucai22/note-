@@ -1,12 +1,10 @@
 package cn.henu.cs.note.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -49,7 +47,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 //    }
     @Override
     protected int initLayout() {
-        return R.layout.home;
+        return R.layout.home_activity;
     }
 
     @Override

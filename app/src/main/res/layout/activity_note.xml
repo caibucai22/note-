@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.NoteActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/note_activity_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/note_activity_back" />
+
+        <ImageView
+            android:id="@+id/note_activity_complete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/note_activity_complete" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/note_activity_title"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:hint="请输入标题"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="30sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/text_gray" />
+
+        <EditText
+            android:id="@+id/note_activity_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="在这里挥洒你的创意吧"
+            android:scrollbars="vertical"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <ImageView
+            android:id="@+id/add_pic"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@mipmap/note_activity_add_pic" />
+
+        <ImageView
+            android:id="@+id/style_bold"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_bold" />
+        <ImageView
+            android:id="@+id/style_italics"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_italics" />
+        <ImageView
+            android:id="@+id/style_underline"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_underline" />
+        <ImageView
+            android:id="@+id/style_align_left"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_align_left" />
+        <ImageView
+            android:id="@+id/style_align_right"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_align_right" />
+        <ImageView
+            android:id="@+id/style_align_center"
+            android:layout_weight="1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@mipmap/note_activity_align_center" />
+    </LinearLayout>
+</LinearLayout>

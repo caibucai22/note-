@@ -120,7 +120,7 @@ public class RegisterActivity extends BaseActivity {
         regCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(LoginActivity.class);
+                finish();
             }
         });
     }

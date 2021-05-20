@@ -2,38 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@drawable/item_note_shape"
+    android:elevation="10dp"
+    android:orientation="vertical"
+    android:outlineAmbientShadowColor="@color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:orientation="vertical"
         android:background="@color/item_note_white"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/item_note_iv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_launcher_background"/>
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:gravity="left"
                 android:id="@+id/item_note_tile"
                 android:layout_width="match_parent"
-                android:text="测试测试测试"
                 android:layout_height="30dp"
+                android:gravity="left"
+                android:text="测试测试测试"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/item_note_content"
             android:layout_width="match_parent"
@@ -41,14 +43,14 @@
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textColor="@color/item_note_gray"
             android:textSize="20dp" />
+
         <TextView
             android:id="@+id/item_note_time"
-            android:text="测试时间 2021.05.16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:text="测试时间 2021.05.16"
             android:textColor="@color/item_note_gray"
-            />
+            android:textSize="15dp" />
     </LinearLayout>
 
 </LinearLayout>

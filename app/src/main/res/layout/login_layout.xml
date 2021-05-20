@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -109,13 +109,17 @@
             android:id="@+id/loginBut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登录" />
+            android:text="登录"
+            android:background="@drawable/login_login"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/registerBut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
+            android:textSize="20sp"
+            android:background="@drawable/login_register"
             android:text="注册" />
     </LinearLayout>
 </LinearLayout>
