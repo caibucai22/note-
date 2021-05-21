@@ -18,6 +18,7 @@ public class CRUD {
 
     private static final String[] columns = {
             NoteDataBase.ID,
+            NoteDataBase.TITLE,
             NoteDataBase.CONTENT,
             NoteDataBase.TIME,
             NoteDataBase.MODE
@@ -27,11 +28,11 @@ public class CRUD {
         dbHandler = new NoteDataBase(context);
     }
 
-    public void open(){
+    public void open() {
         db = dbHandler.getWritableDatabase();
     }
 
-    public void close(){
+    public void close() {
         dbHandler.close();
     }
 
@@ -39,6 +40,7 @@ public class CRUD {
     public NoteEntity addNote(NoteEntity note){
         //add a note object to database
         ContentValues contentValues = new ContentValues();
+        contentValues.put(NoteDataBase.TITLE, note.getTitle());
         contentValues.put(NoteDataBase.CONTENT, note.getContent());
         contentValues.put(NoteDataBase.TIME, note.getTime());
         contentValues.put(NoteDataBase.MODE, note.getTag());
@@ -46,17 +48,17 @@ public class CRUD {
         note.setId(insertId);
         return note;
     }
-
-    public NoteEntity getNote(long id){
+    //查询一个note
+    public NoteEntity getNote(long id) {
         //get a note from database using cursor index
         Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, NoteDataBase.ID + "=?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
-        NoteEntity e = new NoteEntity(cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+        NoteEntity e = new NoteEntity(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
         return e;
     }
 
-    public List<NoteEntity> getAllNotes(){
+    public List<NoteEntity> getAllNotes() {
         Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, null, null, null, null, null);
 
         List<NoteEntity> notes = new ArrayList<>();
@@ -64,6 +66,7 @@ public class CRUD {
             while (cursor.moveToNext()){
                 NoteEntity note = new NoteEntity();
                 note.setId(cursor.getLong(cursor.getColumnIndex(NoteDataBase.ID)));
+                note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDataBase.TITLE)));
                 note.setContent(cursor.getString(cursor.getColumnIndex(NoteDataBase.CONTENT)));
                 note.setTime(cursor.getString(cursor.getColumnIndex(NoteDataBase.TIME)));
                 note.setTag(cursor.getInt(cursor.getColumnIndex(NoteDataBase.MODE)));
@@ -76,6 +79,7 @@ public class CRUD {
     public int updateNote(NoteEntity note) {
         //update the info of an existing note
         ContentValues values = new ContentValues();
+        values.put(NoteDataBase.TITLE, note.getTitle());
         values.put(NoteDataBase.CONTENT, note.getContent());
         values.put(NoteDataBase.TIME, note.getTime());
         values.put(NoteDataBase.MODE, note.getTag());
@@ -84,7 +88,7 @@ public class CRUD {
                 NoteDataBase.ID + "=?", new String[] { String.valueOf(note.getId())});
     }
 
-    public void removeNote(NoteEntity note){
+    public void removeNote(NoteEntity note) {
         //remove a note according to ID value
         db.delete(NoteDataBase.TABLE_NAME, NoteDataBase.ID + "=" + note.getId(), null);
     }

@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout homeLLayout, favoritesLLayout, myLLayout;
     private ImageView iv_home, iv_favorites, iv_my, iv_Current;
     private TextView t_home, t_favorites, t_my, t_Current;
+    private Toolbar myToolbar;
 
 //    //创建菜单，加载home_menu.xml布局文件
 //    public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,6 +54,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initView() {
+        myToolbar = findViewById(R.id.home_toolbar);
+
         homeLLayout = findViewById(R.id.id_bottom_home);
         favoritesLLayout = findViewById(R.id.id_bottom_favorites);
         myLLayout = findViewById(R.id.id_bottom_my);
@@ -81,6 +85,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //设置toolbar取代actionBar
+
 //创建一个Fragment数组(向量)存放资源
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new home_fragment());

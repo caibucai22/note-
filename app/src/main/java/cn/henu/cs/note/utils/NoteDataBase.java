@@ -10,7 +10,9 @@ public class NoteDataBase extends SQLiteOpenHelper {
     public static final String CONTENT = "content";
     public static final String ID = "_id";
     public static final String TIME = "time";
+    public static final String TITLE = "title";
     public static final String MODE = "mode";
+
 
     public NoteDataBase(Context context){
         super(context, TABLE_NAME, null, 1);
@@ -21,6 +23,7 @@ public class NoteDataBase extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME
                 + "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + TITLE + " TEXT NOT NULL,"
                 + CONTENT + " TEXT NOT NULL,"
                 + TIME + " TEXT NOT NULL,"
                 + MODE + " INTEGER DEFAULT 1)"

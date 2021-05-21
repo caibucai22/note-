@@ -7,16 +7,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import cn.bmob.v3.http.I;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.henu.cs.note.R;
-import cn.henu.cs.note.entity.NoteEntity;
 
 public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private ImageView note_activity_back, note_activity_complete;
     private ImageView add_pic, style_bold, style_italics, style_underline,
             style_align_left, style_align_right, style_align_center;
-    private EditText title, content;
-    private NoteEntity noteEntity;
+    private EditText note_activity_title, note_activity_content;
+    //传回的数据
+    private int tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,8 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         style_align_right = findViewById(R.id.style_align_right);
         style_align_center = findViewById(R.id.style_align_center);
 
-        title = findViewById(R.id.note_activity_title);
-        content = findViewById(R.id.note_activity_content);
+        note_activity_title = findViewById(R.id.note_activity_title1);
+        note_activity_content = findViewById(R.id.note_activity_content);
 
     }
 
@@ -58,9 +60,6 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         style_align_right.setOnClickListener(this);
         style_align_center.setOnClickListener(this);
 
-        //noteEntity.setTitle(title.getText().toString());
-        //noteEntity.setContent(content.getText().toString());
-
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -68,7 +67,10 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {
             Intent intent = new Intent();
-            intent.putExtra("input", content.getText().toString());
+            intent.putExtra("content", note_activity_content.getText().toString());
+            intent.putExtra("time", dateToStr());
+            intent.putExtra("title", note_activity_title.getText().toString());
+            intent.putExtra("tag", tag);
             setResult(RESULT_OK, intent);
             finish();
             return true;
@@ -81,13 +83,22 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.note_activity_back:
                 Intent intent = new Intent();
-                intent.putExtra("input", content.getText().toString());
+                intent.putExtra("content", note_activity_content.getText().toString());
+                intent.putExtra("time", dateToStr());
+                intent.putExtra("title", note_activity_title.getText().toString());
+                intent.putExtra("tag", tag);
                 setResult(RESULT_OK, intent);
-                finish();
                 finish();
                 break;
             case R.id.note_activity_complete:
+
                 break;
         }
+    }
+    //获取当前系统时间
+    private String dateToStr() {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
     }
 }

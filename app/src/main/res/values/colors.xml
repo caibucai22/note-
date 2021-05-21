@@ -13,4 +13,27 @@
     <color name="text_gray">#a0a0a0</color>
     <color name="item_note_gray">#797979</color>
     <color name="item_note_white">#f6f6f6</color>
+
+    <!--外加的颜色-->
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="fabColor1">#ffbbbb</color>
+    <color name="near_black">#3b3b3b</color>
+    <color name="greyC">#cccccc</color>
+    <color name="grey9">#999999</color>
+    <color name="near_white">#f3f3f3</color>
+
+    <color name="cover">#66000000</color>
+
+    <color name="q">#19CAAD</color>
+    <color name="w">#8CC7B5</color>
+    <color name="e">#A0EEE1</color>
+    <color name="r">#BEE7E9</color>
+    <color name="t">#BEEDC7</color>
+    <color name="y">#D6D5B7</color>
+    <color name="u">#D1BA74</color>
+    <color name="i">#E6CEAC</color>
+    <color name="o">#ECAD9E</color>
+    <color name="p">#F4606C</color>
+    <!--外加的颜色-->
 </resources>

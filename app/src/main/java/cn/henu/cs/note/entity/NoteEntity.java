@@ -10,7 +10,6 @@ public class NoteEntity implements Serializable {
     private String content;
     private String time;
     private int tag;
-
     public NoteEntity() {
 
     }
@@ -20,21 +19,19 @@ public class NoteEntity implements Serializable {
         this.time = time;
         this.tag = tag;
     }
-
-    public int getTag() {
-        return tag;
-    }
-
-    public void setTag(int tag) {
+    public NoteEntity( String title,String content, String time, int tag) {
+        this.title=title;
+        this.content = content;
+        this.time = time;
         this.tag = tag;
-    }
-
-    public void setId(long id) {
-        Id = id;
     }
 
     public long getId() {
         return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
     }
 
     public String getTitle() {
@@ -61,9 +58,43 @@ public class NoteEntity implements Serializable {
         this.time = time;
     }
 
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return content + "\n" + time.substring(5, 6) + " " + Id;
     }
+
+    //使显示到RecyclerView的信息格式化
+    public String formatTitle() {
+        String result;
+        if(title.isEmpty()) {
+            result = content.substring(0, 20)+"...";
+        }
+        if(title.length()>20) {
+            result=title.substring(0, 20)+"...";
+        }else {
+            result = title;
+        }
+        return result;
+    }
+//    public String formatContent() {
+//        String result;
+//        if(title.isEmpty()) {
+//            result = content.substring(0, 20)+"...";
+//        }
+//        if(title.length()>20) {
+//            result=title.substring(0, 20)+"...";
+//        }else {
+//            result = title;
+//        }
+//        return result;
+//    }
 }

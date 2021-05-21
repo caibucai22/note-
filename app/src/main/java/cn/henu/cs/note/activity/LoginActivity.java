@@ -1,5 +1,6 @@
 package cn.henu.cs.note.activity;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -78,22 +80,20 @@ public class LoginActivity extends BaseActivity {
                 BmobUser userlogin = new BmobUser();
                 userlogin.setUsername(userNameS);
                 userlogin.setPassword(userPwdS);
+                ProgressDialog pd = crateProgressDialog("登录", "正在登录请稍等...", ProgressDialog.STYLE_SPINNER);
+                pd.show();
                 userlogin.login(new SaveListener<BmobUser>() {
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
                         if (e == null) {
-//                            //实例化主界面
-//                            Intent it = new Intent(LoginActivity.this, HomeActivity.class);
-//                            //启动主界面
-//                            LoginActivity.this.startActivityForResult(it, 1);
                             navigateTo(HomeActivity.class);
                             showToast(bmobUser.getUsername() + "登陆成功");
-                            //Toast.makeText(LoginActivity.this, bmobUser.getUsername() + "登陆成功", Toast.LENGTH_LONG).show();
                         } else {
                             showToast("登陆失败" + e.getMessage());
                         }
                     }
                 });
+                pd.dismiss();
             }
         });
         //4.注册 注册按钮监听器

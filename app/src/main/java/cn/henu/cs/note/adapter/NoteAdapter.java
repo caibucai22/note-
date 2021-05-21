@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,16 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private List<NoteEntity> oldDataList;//备份原来的数据
     private List<NoteEntity> newDataList;//这个数据是会改变的，所以先保存一下原来的数据
     private MyFilter mFilter;
+    private OnItemClickListener mOnItemClickListener;
+
+    //设置回调接口
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
 
     public NoteAdapter(Context context, List<NoteEntity> datas) {
         this.mContext = context;
@@ -42,10 +53,28 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder vh = (ViewHolder) holder;
         NoteEntity noteEntity = oldDataList.get(position);
-        vh.picId.setImageResource(noteEntity.getTag());
+        if (noteEntity.getTag() == 1) {
+            vh.picId.setImageResource(R.mipmap.note_type_1);
+        } else if (noteEntity.getTag() == 2) {
+            vh.picId.setImageResource(R.mipmap.note_type_2);
+        } else if (noteEntity.getTag() == 3) {
+            vh.picId.setImageResource(R.mipmap.note_type_3);
+        }
         vh.tvTitle.setText(noteEntity.getTitle());
         vh.tvContent.setText(noteEntity.getContent());
         vh.tvTime.setText(noteEntity.getTime());
+        vh.linearLayout.setTag(position);
+
+        //通过为条目设置点击事件触发回调
+        if (mOnItemClickListener != null) {
+            vh.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickListener.onItemClick(view, position);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -53,8 +82,8 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         return oldDataList.size();
     }
 
-
     static class ViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout linearLayout;
         private TextView tvTitle;
         private TextView tvContent;
         private TextView tvTime;
@@ -62,11 +91,11 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         public ViewHolder(@NonNull View view) {
             super(view);
+            linearLayout = view.findViewById(R.id.item_note_layout);
             tvTitle = view.findViewById(R.id.item_note_tile);
             tvContent = view.findViewById(R.id.item_note_content);
             tvTime = view.findViewById(R.id.item_note_time);
             picId = view.findViewById(R.id.item_note_iv);
-
         }
     }
 
