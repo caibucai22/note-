@@ -1,6 +1,7 @@
 package cn.henu.cs.note.activity;
 
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import cn.henu.cs.note.fragment.favorites_Fragment;
 import cn.henu.cs.note.fragment.home_fragment;
 import cn.henu.cs.note.fragment.my_Fragment;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener, AbsListView.RecyclerListener {
     private ViewPager2 myViewPager2;
     //底部导航栏的组件
     private LinearLayout homeLLayout, favoritesLLayout, myLLayout;
@@ -153,4 +154,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onMovedToScrapHeap(View view) {
+
+    }
 }
