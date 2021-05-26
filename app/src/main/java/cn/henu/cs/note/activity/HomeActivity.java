@@ -1,10 +1,16 @@
 package cn.henu.cs.note.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.core.content.ContextCompat;
@@ -25,29 +31,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private LinearLayout homeLLayout, favoritesLLayout, myLLayout;
     private ImageView iv_home, iv_favorites, iv_my, iv_Current;
     private TextView t_home, t_favorites, t_my, t_Current;
-    private Toolbar myToolbar;
+    private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+    private MyFragmentPagerAdapter pagerAdapter;
 
-//    //创建菜单，加载home_menu.xml布局文件
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.home_menu, menu);
-//        return true;
-//    }
-//
-//    //当OptionsMenu被选中的时候处理具体的响应事件
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.refresh:
-//                Toast.makeText(this, "Option 1", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.showAbstract:
-//                Toast.makeText(this, "Option 2", Toast.LENGTH_SHORT).show();
-//                return true;
-//            default:
-//                //do nothing
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
     @Override
     protected int initLayout() {
         return R.layout.home_activity;
@@ -55,7 +42,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initView() {
-        myToolbar = findViewById(R.id.home_toolbar);
 
         homeLLayout = findViewById(R.id.id_bottom_home);
         favoritesLLayout = findViewById(R.id.id_bottom_favorites);
@@ -86,16 +72,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initData() {
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //设置toolbar取代actionBar
 
-//创建一个Fragment数组(向量)存放资源
-        ArrayList<Fragment> fragments = new ArrayList<>();
+
+
         fragments.add(new home_fragment());
         fragments.add(new favorites_Fragment());
         fragments.add(new my_Fragment());
-        MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
+        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         myViewPager2.setAdapter(pagerAdapter);
         myViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

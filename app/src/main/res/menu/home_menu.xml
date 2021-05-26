@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/refresh"
+        android:id="@+id/home_menu_search"
+        android:icon="?attr/menu_search"
+        android:orderInCategory="100"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="搜索"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/home_menu_refresh"
+        android:icon="@drawable/ic_refresh_black_24"
         android:orderInCategory="100"
         android:title="同步"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/home_menu_deleteAll"
+        android:orderInCategory="100"
+        android:title="清楚缓存"
         app:showAsAction="never" />
     <item
-        android:id="@+id/showAbstract"
+        android:id="@+id/home_menu_settings"
         android:orderInCategory="100"
-        android:title="显示摘要"
+        android:title="设置"
         app:showAsAction="never" />
+
 </menu>

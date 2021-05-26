@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.view.textclassifier.ConversationAction;
+import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,4 +94,9 @@ public class CRUD {
         db.delete(NoteDataBase.TABLE_NAME, NoteDataBase.ID + "=" + note.getId(), null);
     }
 
+    public void removeAllNote(List<NoteEntity> notes) {
+        for(int i=0; i<notes.size(); i++) {
+            db.delete(NoteDataBase.TABLE_NAME, NoteDataBase.ID + "=" + notes.get(i).getId(), null);
+        }
+    }
 }
