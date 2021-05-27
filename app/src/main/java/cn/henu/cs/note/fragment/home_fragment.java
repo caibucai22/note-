@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +24,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-
+import androidx.appcompat.widget.SearchView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.activity.NoteActivity;
@@ -35,6 +39,8 @@ import cn.henu.cs.note.entity.NoteEntity;
 import cn.henu.cs.note.utils.CRUD;
 import cn.henu.cs.note.utils.NoteDataBase;
 import cn.henu.cs.note.utils.RecyclerItemClickListener;
+
+import static android.content.ContentValues.TAG;
 
 public class home_fragment extends Fragment {
 
@@ -52,16 +58,25 @@ public class home_fragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.home_menu, menu);
+//        Log.e(TAG, "onCreateOptionsMenu: ");
+//        inflater.inflate(R.menu.home_menu, menu);
+//        Log.d(TAG, "onCreateOptionsMenu: "+"搜索框");
+//        MenuItem mSearch = menu.findItem(R.id.home_menu_search);
+//        SearchView mSearchView = (SearchView) mSearch.getActionView();
+//        mSearchView.setQueryHint("Search");
+//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+
     }
-
-    //当OptionsMenu被选中的时候处理具体的响应事件
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public home_fragment() {
         // Required empty public constructor
@@ -71,13 +86,29 @@ public class home_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
-
         //Toolbar的操作
         homeToolbar = v.findViewById(R.id.home_toolbar);
         homeToolbar.inflateMenu(R.menu.home_menu);
+        //获取到Search搜索框并设置事件
+        MenuItem mSearch = homeToolbar.getMenu().findItem(R.id.home_menu_search);
+        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setQueryHint("Search");
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        //Menu的点击事件
         homeToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -116,7 +147,7 @@ public class home_fragment extends Fragment {
         });
         homeToolbar.setTitle("主页");
 
-
+        
         newNoteBut = v.findViewById(R.id.new_note_but);
         recyclerView = v.findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
