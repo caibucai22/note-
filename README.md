@@ -15,3 +15,24 @@
 更新：
     1.完成bomb后端云SDK及依赖包的配置
     2.所需权限的修改（文件AndroidManifest.xml 修改）
+
+----------2021/5/29-------------(蔡升堰）
+基本设置界面参考
+https://www.cnblogs.com/stars-one/p/8548648.html
+https://blog.csdn.net/u012702547/article/details/47039199
+https://blog.csdn.net/cqx13763055264/article/details/78498419#commentBox
+
+设置保存参考
+https://blog.csdn.net/binzeefox/article/details/103732918
+
+设置的样式风格
+https://www.jianshu.com/p/9b7ea3450f0c
+https://www.jianshu.com/p/e6e3ef093467
+
+设置的内容获取
+https://www.jianshu.com/p/9b7ea3450f0c
+
+fragement 添加到activity中 方法
+https://blog.csdn.net/qq_38340601/article/details/82082135
+
+
