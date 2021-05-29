@@ -145,6 +145,7 @@ public class home_fragment extends Fragment {
                 intent.putExtra("title", curNote.getTitle());
                 intent.putExtra("tag", curNote.getTag());
                 intent.putExtra("mode", 3);
+                intent.putExtra("favorites", curNote.getFavorites());
                 startActivityForResult(intent, 1);
             }
 
@@ -167,10 +168,14 @@ public class home_fragment extends Fragment {
                             case 1://将第position个笔记添加到收藏
                                 op.open();
                                 NoteEntity newNote = noteList.get(position);
-                                newNote.setFavorites(1);
-                                op.updateNote(newNote);
-                                op.close();
-                                Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                                if(newNote.getFavorites()==0){
+                                    newNote.setFavorites(1);
+                                    op.updateNote(newNote);
+                                    op.close();
+                                    Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(context, "请勿重复添加", Toast.LENGTH_LONG).show();
+                                }
                                 break;
                         }
                     }
@@ -211,6 +216,11 @@ public class home_fragment extends Fragment {
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshRecyclerView();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -226,8 +236,9 @@ public class home_fragment extends Fragment {
                 String time = data.getExtras().getString("time");
                 String title = data.getStringExtra("title");
                 int tag = data.getExtras().getInt("tag", 1);
+                int favorites = data.getIntExtra("favorites", 0);
 
-                NoteEntity newNote = new NoteEntity(title, content, time, tag);
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites,tag);
                 newNote.setId(note_Id);
                 CRUD op = new CRUD(context);
                 op.open();
@@ -241,8 +252,9 @@ public class home_fragment extends Fragment {
                 String time = data.getExtras().getString("time");
                 String title = data.getStringExtra("title");
                 int tag = data.getExtras().getInt("tag", 1);
+                int favorites = data.getIntExtra("favorites", 0);
 
-                NoteEntity newNote = new NoteEntity(title, content, time, tag);
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites,tag);
                 CRUD op = new CRUD(context);
                 op.open();
                 op.addNote(newNote);

@@ -26,6 +26,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private String old_time = "";
     private String old_title = "";
     private int old_Tag = 1;
+    private int old_favorites = 0;
     private long id = 0;
     private int openMode = 0;    //4：代表是新建的笔记， 3：代表是打开原来的笔记
     private int tag = 1;
@@ -93,6 +94,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
             old_Tag = getIntent.getIntExtra("tag", 1);
             old_time = getIntent.getStringExtra("time");
             old_title = getIntent.getStringExtra("title");
+            old_favorites = getIntent.getIntExtra("favorites", 0);
 
             note_activity_title.setText(old_title);
             if (old_title.length() != 0) {
@@ -125,6 +127,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                 intent.putExtra("time", dateToStr());
                 intent.putExtra("title", note_activity_title.getText().toString());
                 intent.putExtra("tag", tag);
+                intent.putExtra("favorites", old_favorites);
             }
         } else {
             if (note_activity_content.getText().toString().equals(old_content) && note_activity_title.getText().toString().equals(old_title) && !tagChange)
@@ -136,6 +139,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                 intent.putExtra("id", id);
                 intent.putExtra("title", note_activity_title.getText().toString());
                 intent.putExtra("tag", tag);
+                intent.putExtra("favorites", old_favorites);
             }
         }
     }

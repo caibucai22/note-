@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.entity.NoteEntity;
 
 public class my_Fragment extends Fragment {
-
+    private List<NoteEntity> favoritesNotes = new ArrayList<NoteEntity>();//笔记数据
     private ListView listView1, listView2, listView3, listView4;
 
     public my_Fragment() {
