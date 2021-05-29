@@ -8,8 +8,19 @@ public class NoteEntity implements Serializable {
     private long Id;
     private String title;
     private String content;
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int favorites) {
+        this.favorites = favorites;
+    }
+
     private String time;
     private int tag;
+    private int favorites;
+
     public NoteEntity() {
 
     }
@@ -19,10 +30,19 @@ public class NoteEntity implements Serializable {
         this.time = time;
         this.tag = tag;
     }
-    public NoteEntity( String title,String content, String time, int tag) {
-        this.title=title;
+
+    public NoteEntity(String title, String content, String time, int tag) {
+        this.title = title;
         this.content = content;
         this.time = time;
+        this.tag = tag;
+    }
+
+    public NoteEntity(String title, String content, String time, int favorites, int tag) {
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.favorites = favorites;
         this.tag = tag;
     }
 
@@ -75,26 +95,15 @@ public class NoteEntity implements Serializable {
     //使显示到RecyclerView的信息格式化
     public String formatTitle() {
         String result;
-        if(title.isEmpty()) {
-            result = content.substring(0, 20)+"...";
+        if (title.isEmpty()) {
+            result = content.substring(0, 20) + "...";
         }
-        if(title.length()>20) {
-            result=title.substring(0, 20)+"...";
-        }else {
+        if (title.length() > 20) {
+            result = title.substring(0, 20) + "...";
+        } else {
             result = title;
         }
         return result;
     }
-//    public String formatContent() {
-//        String result;
-//        if(title.isEmpty()) {
-//            result = content.substring(0, 20)+"...";
-//        }
-//        if(title.length()>20) {
-//            result=title.substring(0, 20)+"...";
-//        }else {
-//            result = title;
-//        }
-//        return result;
-//    }
+
 }

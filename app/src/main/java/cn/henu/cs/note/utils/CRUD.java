@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.view.textclassifier.ConversationAction;
 import android.widget.ListAdapter;
 
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.henu.cs.note.entity.NoteEntity;
+
+import static android.service.controls.ControlsProviderService.TAG;
 
 public class CRUD {
     SQLiteOpenHelper dbHandler;
@@ -22,6 +25,7 @@ public class CRUD {
             NoteDataBase.TITLE,
             NoteDataBase.CONTENT,
             NoteDataBase.TIME,
+            NoteDataBase.FAVORITES,
             NoteDataBase.MODE
     };
 
@@ -38,24 +42,26 @@ public class CRUD {
     }
 
     //把note 加入到database里面
-    public NoteEntity addNote(NoteEntity note){
+    public NoteEntity addNote(NoteEntity note) {
         //add a note object to database
         ContentValues contentValues = new ContentValues();
         contentValues.put(NoteDataBase.TITLE, note.getTitle());
         contentValues.put(NoteDataBase.CONTENT, note.getContent());
         contentValues.put(NoteDataBase.TIME, note.getTime());
+        contentValues.put(NoteDataBase.FAVORITES, note.getFavorites());
         contentValues.put(NoteDataBase.MODE, note.getTag());
         long insertId = db.insert(NoteDataBase.TABLE_NAME, null, contentValues);
         note.setId(insertId);
         return note;
     }
+
     //查询一个note
     public NoteEntity getNote(long id) {
         //get a note from database using cursor index
         Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, NoteDataBase.ID + "=?",
-                new String[] {String.valueOf(id)}, null, null, null, null);
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
-        NoteEntity e = new NoteEntity(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+        NoteEntity e = new NoteEntity(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(5));
         return e;
     }
 
@@ -63,30 +69,52 @@ public class CRUD {
         Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, null, null, null, null, null);
 
         List<NoteEntity> notes = new ArrayList<>();
-        if (cursor.getCount() > 0){
-            while (cursor.moveToNext()){
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
                 NoteEntity note = new NoteEntity();
                 note.setId(cursor.getLong(cursor.getColumnIndex(NoteDataBase.ID)));
                 note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDataBase.TITLE)));
                 note.setContent(cursor.getString(cursor.getColumnIndex(NoteDataBase.CONTENT)));
                 note.setTime(cursor.getString(cursor.getColumnIndex(NoteDataBase.TIME)));
+                note.setFavorites(cursor.getInt(cursor.getColumnIndex(NoteDataBase.FAVORITES)));
                 note.setTag(cursor.getInt(cursor.getColumnIndex(NoteDataBase.MODE)));
                 notes.add(note);
             }
         }
         return notes;
     }
+    public List<NoteEntity> getFavoritesNotes(int favorites) {
 
+        Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, null, null, null, null, null);
+
+        List<NoteEntity> notes = new ArrayList<>();
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                if(cursor.getInt(cursor.getColumnIndex(NoteDataBase.FAVORITES))==favorites) {
+                    NoteEntity note = new NoteEntity();
+                    note.setId(cursor.getLong(cursor.getColumnIndex(NoteDataBase.ID)));
+                    note.setTitle(cursor.getString(cursor.getColumnIndex(NoteDataBase.TITLE)));
+                    note.setContent(cursor.getString(cursor.getColumnIndex(NoteDataBase.CONTENT)));
+                    note.setTime(cursor.getString(cursor.getColumnIndex(NoteDataBase.TIME)));
+                    note.setFavorites(cursor.getInt(cursor.getColumnIndex(NoteDataBase.FAVORITES)));
+                    note.setTag(cursor.getInt(cursor.getColumnIndex(NoteDataBase.MODE)));
+                    notes.add(note);
+                }
+            }
+        }
+        return notes;
+    }
     public int updateNote(NoteEntity note) {
         //update the info of an existing note
         ContentValues values = new ContentValues();
         values.put(NoteDataBase.TITLE, note.getTitle());
         values.put(NoteDataBase.CONTENT, note.getContent());
         values.put(NoteDataBase.TIME, note.getTime());
+        values.put(NoteDataBase.FAVORITES, note.getFavorites());
         values.put(NoteDataBase.MODE, note.getTag());
         //updating row
         return db.update(NoteDataBase.TABLE_NAME, values,
-                NoteDataBase.ID + "=?", new String[] { String.valueOf(note.getId())});
+                NoteDataBase.ID + "=?", new String[]{String.valueOf(note.getId())});
     }
 
     public void removeNote(NoteEntity note) {
@@ -95,7 +123,7 @@ public class CRUD {
     }
 
     public void removeAllNote(List<NoteEntity> notes) {
-        for(int i=0; i<notes.size(); i++) {
+        for (int i = 0; i < notes.size(); i++) {
             db.delete(NoteDataBase.TABLE_NAME, NoteDataBase.ID + "=" + notes.get(i).getId(), null);
         }
     }

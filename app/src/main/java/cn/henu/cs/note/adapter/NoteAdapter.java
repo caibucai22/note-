@@ -2,17 +2,15 @@ package cn.henu.cs.note.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,16 +21,20 @@ import java.util.List;
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.entity.NoteEntity;
 
+import static android.content.ContentValues.TAG;
+
 public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
     private Context mContext;
-    private List<NoteEntity> oldDataList;//备份原来的数据
-    private List<NoteEntity> newDataList;//这个数据是会改变的，所以先保存一下原来的数据
+    private List<NoteEntity> backList;//备份原来的数据
+    private List<NoteEntity> noteList;//这个数据是会改变的，所以先保存一下原来的数据
     private MyFilter mFilter;
 
 
     public NoteAdapter(Context context, List<NoteEntity> datas) {
         this.mContext = context;
-        this.oldDataList = datas;
+        this.noteList = datas;
+
+        backList = noteList;
     }
 
     @NonNull
@@ -46,7 +48,7 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder vh = (ViewHolder) holder;
-        NoteEntity noteEntity = oldDataList.get(position);
+        NoteEntity noteEntity = noteList.get(position);
         if (noteEntity.getTag() == 1) {
             vh.picId.setImageResource(R.mipmap.note_type_1);
         } else if (noteEntity.getTag() == 2) {
@@ -63,7 +65,7 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public int getItemCount() {
-        return oldDataList.size();
+        return noteList.size();
     }
 
 
@@ -82,23 +84,7 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             tvTime = view.findViewById(R.id.item_note_time);
             picId = view.findViewById(R.id.item_note_iv);
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onItemClickListener!=null) {
-                        onItemClickListener.onItemClick(v, getAdapterPosition());
-                    }
-                }
-            });
         }
-    }
-    public interface OnItemClickListener{
-        public void onItemClick(View view, int position);
-    }
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -116,14 +102,13 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             FilterResults result = new FilterResults();
             List<NoteEntity> list;
             if (TextUtils.isEmpty(charSequence)) {//当过滤的关键字为空的时候，我们则显示所有的数据
-                list = oldDataList;
+                list = backList;
             } else {//否则把符合条件的数据对象添加到集合中
                 list = new ArrayList<>();
-                for (NoteEntity note : oldDataList) {
+                for (NoteEntity note : backList) {
                     if (note.getContent().contains(charSequence)) {
                         list.add(note);
                     }
-
                 }
             }
             result.values = list; //将得到的集合保存到FilterResults的value变量中
@@ -135,12 +120,11 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         //在publishResults方法中告诉适配器更新界面
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            newDataList = (List<NoteEntity>) filterResults.values;
-            if (filterResults.count > 0) {
+            noteList = (List<NoteEntity>) filterResults.values;
+            //if (filterResults.count > 0){
+                Log.d(TAG, "publishResults: 更新成功");
                 notifyDataSetChanged();//通知数据发生了改变
-            } else {
-                //notifyDataSetInvalidated();//通知数据失效
-            }
+            //}
         }
     }
 

@@ -5,10 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.annotation.LongDef;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,21 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.SearchView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.security.auth.login.LoginException;
 
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.activity.NoteActivity;
@@ -54,29 +51,6 @@ public class home_fragment extends Fragment {
     private NoteAdapter adapter;//RecyclerView适配器
     private List<NoteEntity> noteList = new ArrayList<NoteEntity>();//笔记数据
 
-    //创建菜单，加载home_menu.xml布局文件
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-//        Log.e(TAG, "onCreateOptionsMenu: ");
-//        inflater.inflate(R.menu.home_menu, menu);
-//        Log.d(TAG, "onCreateOptionsMenu: "+"搜索框");
-//        MenuItem mSearch = menu.findItem(R.id.home_menu_search);
-//        SearchView mSearchView = (SearchView) mSearch.getActionView();
-//        mSearchView.setQueryHint("Search");
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
-
-    }
 
     public home_fragment() {
         // Required empty public constructor
@@ -105,6 +79,7 @@ public class home_fragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -113,8 +88,6 @@ public class home_fragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_search:
-                        return true;
                     case R.id.home_menu_refresh:
                         Toast.makeText(context, "点击了刷新！", Toast.LENGTH_SHORT).show();
                         return true;
@@ -125,7 +98,11 @@ public class home_fragment extends Fragment {
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        deleteAllNotes();
+                                        dbHelper = new NoteDataBase(context);
+                                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                                        db.delete("notes", null, null);
+                                        db.execSQL("update sqlite_sequence set seq=0 where name='notes'");
+                                        refreshRecyclerView();
                                     }
                                 })
                                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -147,9 +124,9 @@ public class home_fragment extends Fragment {
         });
         homeToolbar.setTitle("主页");
 
-        
+
         newNoteBut = v.findViewById(R.id.new_note_but);
-        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.home_recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -173,7 +150,33 @@ public class home_fragment extends Fragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(context, "长按第" + noteList.get(position).getId() + "条笔记", Toast.LENGTH_SHORT).show();
+                final String[] items = {"删除该笔记", "添加到我的收藏"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CRUD op = new CRUD(context);
+                        switch (which) {
+                            case 0://删除第position个笔记
+                                op.open();
+                                op.removeNote(noteList.get(position));
+                                op.close();
+                                refreshRecyclerView();
+                                Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1://将第position个笔记添加到收藏
+                                op.open();
+                                NoteEntity newNote = noteList.get(position);
+                                newNote.setFavorites(1);
+                                op.updateNote(newNote);
+                                op.close();
+                                Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }));
         return v;
@@ -183,18 +186,6 @@ public class home_fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    private void deleteAllNotes() {
-        CRUD op = new CRUD(context);
-        op.open();
-//        for(int i=0; i<noteList.size(); i++) {
-//            op.removeNote(noteList.get(i));
-//        }
-        op.removeAllNote(noteList);
-        op.close();
-        noteList.clear();
-        adapter.notifyDataSetChanged();
     }
 
     private void refreshRecyclerView() {
