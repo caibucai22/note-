@@ -17,7 +17,17 @@
         android:elevation="4dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/popupTheme"
-        app:titleTextColor="?attr/titleColor" />
+        app:titleTextColor="?attr/titleColor" >
+        <TextView
+            android:id="@+id/home_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            />
+    </androidx.appcompat.widget.Toolbar>
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView

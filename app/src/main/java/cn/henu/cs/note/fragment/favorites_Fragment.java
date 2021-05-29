@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class favorites_Fragment extends Fragment {
     private NoteDataBase dbHelper;
 
     private Toolbar favoritesToolbar;
+    private TextView favorites_toolbar_title;
 
     private Context context;
     private NoteAdapter favoritesAdapter;//RecyclerView适配器
@@ -60,7 +62,9 @@ public class favorites_Fragment extends Fragment {
         //toolbar设置
         favoritesToolbar = v.findViewById(R.id.favorites_toolbar);
         favoritesToolbar.inflateMenu(R.menu.favorites_menu);
-        favoritesToolbar.setTitle("收藏");
+        favorites_toolbar_title = v.findViewById(R.id.favorites_toolbar_title);
+        favoritesToolbar.setTitle("");
+        favorites_toolbar_title.setText("收藏");
 
         //获取到Search搜索框并设置事件
         MenuItem mSearch = favoritesToolbar.getMenu().findItem(R.id.favorites_menu_search);

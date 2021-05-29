@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -44,7 +45,7 @@ public class home_fragment extends Fragment {
     private FloatingActionButton newNoteBut;
     private RecyclerView recyclerView;
     private NoteDataBase dbHelper;
-
+    private TextView home_toolbar_title;
     private Toolbar homeToolbar;
 
     private Context context;
@@ -122,7 +123,9 @@ public class home_fragment extends Fragment {
                 return false;
             }
         });
-        homeToolbar.setTitle("主页");
+        home_toolbar_title = v.findViewById(R.id.home_toolbar_title);
+        homeToolbar.setTitle("");
+        home_toolbar_title.setText("主页");
 
 
         newNoteBut = v.findViewById(R.id.new_note_but);

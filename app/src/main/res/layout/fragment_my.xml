@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/popupTheme"
+        app:titleTextColor="?attr/titleColor">
+
+        <TextView
+            android:id="@+id/my_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:layout_width="50dp"
@@ -27,18 +47,17 @@
             android:background="@null"
             android:hint="快来编辑你的个性签名吧"
             android:maxLength="30"
-            android:textSize="18dp"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/my_fragment_remainNum"
-            android:textSize="10dp"
-            android:textColor="@color/greyC"
-            android:text="( 5 )"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:text="( 5 )"
+            android:textColor="@color/greyC"
+            android:textSize="10dp" />
     </LinearLayout>
 
 
@@ -125,28 +144,30 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:elevation="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/image1"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
                 android:layout_margin="4dp"
                 android:src="@drawable/myloveicon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/image1"
                 android:layout_weight="1"
                 android:text="我的收藏"
                 android:textSize="25dp" />
@@ -154,33 +175,38 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
                 android:src="@drawable/returnpic" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/grey" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/listView2"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/image2"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
                 android:layout_margin="4dp"
                 android:src="@drawable/chet_with_us" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/image2"
                 android:layout_weight="1"
                 android:text="与我们联系"
                 android:textSize="25dp" />
@@ -188,28 +214,37 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
                 android:src="@drawable/returnpic" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <RelativeLayout
             android:id="@+id/listView3"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/image3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
                 android:layout_margin="4dp"
                 android:src="@drawable/config" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/image3"
                 android:layout_weight="1"
                 android:text="设置"
                 android:textSize="25dp" />
@@ -217,19 +252,26 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
                 android:src="@drawable/returnpic" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <RelativeLayout
             android:id="@+id/listView4"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/image4"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="4dp"
@@ -238,7 +280,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/image4"
                 android:layout_weight="1"
                 android:text="退出登录"
                 android:textSize="25dp" />
@@ -246,7 +289,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
                 android:src="@drawable/returnpic" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
