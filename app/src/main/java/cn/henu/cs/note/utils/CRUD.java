@@ -127,4 +127,22 @@ public class CRUD {
             db.delete(NoteDataBase.TABLE_NAME, NoteDataBase.ID + "=" + notes.get(i).getId(), null);
         }
     }
+
+    public long getAllNoteNum() {
+        Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, null, null, null, null, null);
+        return cursor.getCount();
+    }
+
+    public long getAllFavoritesNoteNum() {
+        long num=0;
+        Cursor cursor = db.query(NoteDataBase.TABLE_NAME, columns, null, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                if(cursor.getInt(cursor.getColumnIndex(NoteDataBase.FAVORITES))!=0) {
+                    num++;
+                }
+            }
+        }
+        return num;
+    }
 }
