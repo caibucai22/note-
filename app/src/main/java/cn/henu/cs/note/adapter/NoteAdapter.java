@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.henu.cs.note.R;
@@ -87,6 +89,18 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
     }
 
+    //按照时间排序
+    public void sortByTime() {
+        Collections.sort(noteList, new Comparator<NoteEntity>() {
+            @Override
+            public int compare(NoteEntity o1, NoteEntity o2) {
+                return o1.getTime().compareTo(o2.getTime());
+            }
+        });
+        Collections.reverse(noteList);
+    }
+
+
     @Override
     public Filter getFilter() {
         if (mFilter == null) {
@@ -94,6 +108,7 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
         return mFilter;
     }
+
 
     class MyFilter extends Filter {
         //我们在performFiltering(CharSequence charSequence)这个方法中定义过滤规则
@@ -122,8 +137,8 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             noteList = (List<NoteEntity>) filterResults.values;
             //if (filterResults.count > 0){
-                Log.d(TAG, "publishResults: 更新成功");
-                notifyDataSetChanged();//通知数据发生了改变
+            Log.d(TAG, "publishResults: 更新成功");
+            notifyDataSetChanged();//通知数据发生了改变
             //}
         }
     }

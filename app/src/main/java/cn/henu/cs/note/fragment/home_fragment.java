@@ -171,12 +171,12 @@ public class home_fragment extends Fragment {
                             case 1://将第position个笔记添加到收藏
                                 op.open();
                                 NoteEntity newNote = noteList.get(position);
-                                if(newNote.getFavorites()==0){
+                                if (newNote.getFavorites() == 0) {
                                     newNote.setFavorites(1);
                                     op.updateNote(newNote);
                                     op.close();
                                     Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
-                                }else {
+                                } else {
                                     Toast.makeText(context, "请勿重复添加", Toast.LENGTH_LONG).show();
                                 }
                                 break;
@@ -203,6 +203,7 @@ public class home_fragment extends Fragment {
         if (noteList.size() > 0) noteList.clear();
         noteList.addAll(op.getAllNotes());
         op.close();
+        adapter.sortByTime();
         adapter.notifyDataSetChanged();
     }
 
@@ -219,6 +220,7 @@ public class home_fragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -232,7 +234,7 @@ public class home_fragment extends Fragment {
         long note_Id;
         returnMode = data.getExtras().getInt("mode", -1);
         note_Id = data.getExtras().getLong("id", 0);
-
+        Log.e(TAG, "onActivityResult: 我接受到了删除信息" + returnMode);
         if (returnMode == 1) {  //update current note
             String content = data.getExtras().getString("content");
             if (!content.isEmpty()) {
@@ -241,7 +243,7 @@ public class home_fragment extends Fragment {
                 int tag = data.getExtras().getInt("tag", 1);
                 int favorites = data.getIntExtra("favorites", 0);
 
-                NoteEntity newNote = new NoteEntity(title, content, time, favorites,tag);
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites, tag);
                 newNote.setId(note_Id);
                 CRUD op = new CRUD(context);
                 op.open();
@@ -257,17 +259,23 @@ public class home_fragment extends Fragment {
                 int tag = data.getExtras().getInt("tag", 1);
                 int favorites = data.getIntExtra("favorites", 0);
 
-                NoteEntity newNote = new NoteEntity(title, content, time, favorites,tag);
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites, tag);
                 CRUD op = new CRUD(context);
                 op.open();
                 op.addNote(newNote);
                 op.close();
             }
+        } else if (returnMode == 2) { // delete
 
+            NoteEntity curNote = new NoteEntity();
+            curNote.setId(note_Id);
+            CRUD op = new CRUD(context);
+            op.open();
+            op.removeNote(curNote);
+            op.close();
         } else {
         }
         refreshRecyclerView();
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

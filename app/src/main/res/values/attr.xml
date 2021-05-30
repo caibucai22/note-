@@ -6,6 +6,8 @@
     <attr name="menu_delete_all" format="string"/>
     <attr name="menu_delete" format="string"/>
     <attr name="menu_setting" format="string"/>
+    <attr name="menu_finish_editing" format="string"/>
+    <attr name="menu_alarm" format="string"/>
     <attr name="titleColor" format="color"/>
     <attr name="tvMainColor" format="color"/>
     <attr name="tvSubColor" format="color"/>

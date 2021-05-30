@@ -230,6 +230,7 @@ public class favorites_Fragment extends Fragment {
         if (favoritesNotes.size() > 0) favoritesNotes.clear();
         favoritesNotes.addAll(op.getFavoritesNotes(1));
         op.close();
+        favoritesAdapter.sortByTime();
         favoritesAdapter.notifyDataSetChanged();
     }
 

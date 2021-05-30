@@ -63,6 +63,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="10dp">
 
+
         <ImageView
             android:id="@+id/add_pic"
             android:layout_width="35dp"

@@ -41,9 +41,11 @@
         <item name="menu_search">@drawable/ic_search_black_24dp</item>
         <item name="titleColor">@color/black</item>
         <item name="tvMainColor">@color/black</item>
+        <item name="menu_finish_editing">@drawable/ic_finish_editing_black</item>
         <item name="tvSubColor">@color/grey9</item>
         <item name="colorControlActivated">@color/black</item>
         <item name="colorSwitchThumbNormal">@color/black</item>
+        <item name="menu_alarm">@drawable/ic_alarm_black_24</item>
     </style>
     -- 暗色主题-->
 
@@ -53,6 +55,8 @@
         <item name="menu_setting">@drawable/ic_settings_white_24dp</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="menu_alarm">@drawable/ic__alarm_white_24</item>
+        <item name="menu_finish_editing">@drawable/ic_finish_editing_white_24</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="tvBackground">@color/black</item>
         <item name="lvBackground">@color/near_black</item>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit_menu_alarm"
+        android:icon="?attr/menu_alarm"
+        android:orderInCategory="100"
+        android:title="设置提醒"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/edit_menu_delete"
+        android:icon="?attr/menu_delete"
+        android:orderInCategory="100"
+        android:title="删除"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/edit_menu_finish"
+        android:icon="?attr/menu_finish_editing"
+        android:orderInCategory="100"
+        android:title="完成"
+        app:showAsAction="always" />
+
+</menu>

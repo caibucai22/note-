@@ -1,12 +1,18 @@
 package cn.henu.cs.note.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +20,9 @@ import java.util.Date;
 
 import cn.bmob.v3.http.I;
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.utils.CRUD;
+
+import static android.content.ContentValues.TAG;
 
 public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private ImageView add_pic, style_bold, style_italics, style_underline,
@@ -103,6 +112,54 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
             note_activity_content.setText(old_content);
             note_activity_content.setSelection(old_content.length());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_note_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_menu_alarm:
+                showToast("提示按钮，功能未实现");
+                break;
+            case R.id.edit_menu_delete:
+                new AlertDialog.Builder(NoteActivity.this)
+                        .setMessage("删除吗？")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (openMode == 4){ // new note
+                                    intent.putExtra("mode", -1);
+                                    Log.e(TAG, "NoteActivity: 我发出了删除信息"+"-1");
+                                    setResult(RESULT_OK, intent);
+                                }
+                                else { // existing note
+                                    intent.putExtra("mode", 2);
+                                    intent.putExtra("id", id);
+                                    Log.e(TAG, "NoteActivity: 我发出了删除信息"+2);
+                                    setResult(RESULT_OK, intent);
+                                }
+                                finish();
+                            }
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+                break;
+
+            case R.id.edit_menu_finish:
+                autoSetMessage();
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
