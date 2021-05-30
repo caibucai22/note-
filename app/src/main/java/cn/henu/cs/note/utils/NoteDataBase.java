@@ -12,9 +12,10 @@ public class NoteDataBase extends SQLiteOpenHelper {
     public static final String TIME = "time";
     public static final String TITLE = "title";
     public static final String MODE = "mode";
+    public static final String FAVORITES = "favorites";
 
 
-    public NoteDataBase(Context context){
+    public NoteDataBase(Context context) {
         super(context, TABLE_NAME, null, 1);
     }
 
@@ -26,6 +27,7 @@ public class NoteDataBase extends SQLiteOpenHelper {
                 + TITLE + " TEXT NOT NULL,"
                 + CONTENT + " TEXT NOT NULL,"
                 + TIME + " TEXT NOT NULL,"
+                + FAVORITES + " INTEGER DEFAULT 0,"
                 + MODE + " INTEGER DEFAULT 1)"
         );
     }

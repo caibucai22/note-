@@ -7,6 +7,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home">主页</string>
     <string name="new_note">新建</string>
+    <string name="my_fragment_item_margin">10dp</string>
+    <string name="my_fragment_item_everyone_margin">4dp</string>
+
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -23,4 +26,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
 </resources>
