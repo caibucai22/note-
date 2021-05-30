@@ -1,6 +1,7 @@
 package cn.henu.cs.note.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -14,16 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.activity.SettingsActivity;
 import cn.henu.cs.note.utils.CRUD;
 
 public class my_Fragment extends Fragment {
 
-    private ListView listView1, listView2, listView3, listView4;
-
+    private ListView listView1, listView2,  listView4;
+    private RelativeLayout listView3;
     private long favoritesNum = 0;
     private long allNotesNum = 0;
     private TextView sumPieces, storePieces, remainNum;
@@ -49,6 +52,14 @@ public class my_Fragment extends Fragment {
         myToolbar.inflateMenu(R.menu.my_menu);
         myToolbar.setTitle("");
         my_toolbar_title.setText("我的");
+        listView3 = v.findViewById(R.id.listView3);
+        listView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SettingsActivity.class);
+                my_Fragment.this.startActivity(intent);
+            }
+        });
 
         myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
