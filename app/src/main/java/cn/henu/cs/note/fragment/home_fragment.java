@@ -100,7 +100,7 @@ public class home_fragment extends Fragment {
             String time = data.getStringExtra("time");
             String title = data.getStringExtra("title");
             int tag = data.getIntExtra("tag", 1);
-            NoteEntity note = new NoteEntity(title,content, time, 1);
+            NoteEntity note = new NoteEntity(title,content, time, tag);
             CRUD op = new CRUD(context);
             op.open();
             op.addNote(note);
