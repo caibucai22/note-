@@ -1,5 +1,6 @@
 package cn.henu.cs.note.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -97,18 +98,27 @@ public class RegisterActivity extends BaseActivity {
                     BmobUser signuser = new BmobUser();
                     signuser.setUsername(userName.getText().toString());
                     signuser.setPassword(userPwd1.getText().toString());
+                    ProgressDialog pd = new ProgressDialog(RegisterActivity.this, ProgressDialog.STYLE_SPINNER);
+                    pd.setTitle("注册");
+                    pd.setMessage("正在注册请稍等...");
+                    pd.setIndeterminate(false);
+                    pd.setCancelable(false);
+                    pd.show();
                     signuser.signUp(new SaveListener<BmobUser>() {
                         @Override
                         public void done(BmobUser bmobUser, BmobException e) {
                             if (e == null) {
+                                pd.dismiss();
                                 showToast("注册成功");
                             } else {
-                                showToast("注册失败"+ e.getMessage());
+                                pd.dismiss();
+                                showToast("注册失败! 错误代码:"+ e.getErrorCode());
                             }
                         }
                     });
                     //注册成功跳转回登陆界面
                     navigateTo(LoginActivity.class);
+                    finish();
                 } else {
                     popInfor.substring(0, popInfor.length() - 1);
                     showToast(popInfor);

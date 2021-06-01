@@ -2,6 +2,7 @@ package cn.henu.cs.note.activity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -23,10 +23,10 @@ public class LoginActivity extends BaseActivity {
     private Button loginBut, registerBut;
     private ImageButton pwdImageBut;
     private CheckBox rememberCheckBox;
-    private SharedPreferences pref;//用于记住密码
-    private SharedPreferences.Editor pwdeditor;//用于记住密码
     private String userNameS, userPwdS;//用于验证用户名和密码
-    private boolean isSelected=false;
+    private boolean showPassword = false;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected int initLayout() {
@@ -53,23 +53,29 @@ public class LoginActivity extends BaseActivity {
          * 有更加细致的初始化待选项，以后再进行添加
          */
 
-
         //2.注册小眼睛（密码显示）监听器
         pwdImageBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSelected) {
-                    isSelected = false;
+                if (showPassword) {
+                    showPassword = false;
                     userPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-                    isSelected = true;
+                    showPassword = true;
                     userPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                pwdImageBut.setSelected(!isSelected);
+                pwdImageBut.setSelected(!showPassword);
             }
         });
-
-        //3.注册登录按钮监听器
+        //3.记住密码
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = sharedPreferences.getBoolean("isRemember", false);
+        if (isRemember) {
+            userName.setText(sharedPreferences.getString("username", ""));
+            userPwd.setText(sharedPreferences.getString("password", ""));
+            rememberCheckBox.setChecked(true);
+        }
+        //4.注册登录按钮监听器
         loginBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,23 +86,40 @@ public class LoginActivity extends BaseActivity {
                 BmobUser userlogin = new BmobUser();
                 userlogin.setUsername(userNameS);
                 userlogin.setPassword(userPwdS);
-                ProgressDialog pd = crateProgressDialog("登录", "正在登录请稍等...", ProgressDialog.STYLE_SPINNER);
+                ProgressDialog pd = new ProgressDialog(LoginActivity.this, ProgressDialog.STYLE_SPINNER);
+                pd.setTitle("登录");
+                pd.setMessage("正在登录请稍等...");
+                pd.setIndeterminate(false);
+                pd.setCancelable(false);
                 pd.show();
                 userlogin.login(new SaveListener<BmobUser>() {
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
                         if (e == null) {
+                            //用户输入的账号密码正确  记住密码
+                            editor = sharedPreferences.edit();
+                            if (rememberCheckBox.isChecked()) {
+                                editor.putBoolean("isRemember", true);
+                                editor.putString("username", userNameS);
+                                editor.putString("password", userPwdS);
+                            } else {
+                                editor.clear();
+                            }
+                            editor.commit();
+                            pd.dismiss();
                             navigateTo(HomeActivity.class);
                             showToast(bmobUser.getUsername() + "登陆成功");
+                            finish();
                         } else {
-                            showToast("登陆失败" + e.getMessage());
+                            editor.commit();
+                            pd.dismiss();
+                            showToast("登陆失败! 错误代码:" +e.getErrorCode());
                         }
                     }
                 });
-                pd.dismiss();
             }
         });
-        //4.注册 注册按钮监听器
+        //5.注册 注册按钮监听器
         registerBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/DayTheme">
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.LoginActivity"
             android:label="Note++">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.HomeActivity"
             android:label="Home" />
         <activity
             android:name=".activity.RegisterActivity"
