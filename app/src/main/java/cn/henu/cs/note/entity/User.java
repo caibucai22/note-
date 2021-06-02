@@ -1,7 +1,5 @@
-package cn.henu.cs.note;
+package cn.henu.cs.note.entity;
 
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -9,79 +7,23 @@ import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
-
 public class User extends BmobUser {
-    private int id;
-    private String username;
-    private String password;
-    private String phonenum;
 
-    public int getId() {
-        return id;
+    private String signature;
+
+    public String getSignature() {
+        return signature;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhonenum() {
-        return phonenum;
-    }
-
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(String username, String password, String phoneNum) {
-        this.username = username;
-        this.password = password;
-        this.phonenum = phoneNum;
-    }
-
-    public User(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     //封装保存方法 未实现
@@ -115,10 +57,10 @@ public class User extends BmobUser {
             @Override
             public void done(User user, BmobException e) {
                 user.getUsername();
-                user.getPassword();
-                if(username.equals(user.getUsername())&&password.equals(user.getPassword())){
-
-                }
+//                user.getPassword();
+//                if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+//
+//                }
             }
         });
 

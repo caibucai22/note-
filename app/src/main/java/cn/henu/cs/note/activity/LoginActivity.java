@@ -16,6 +16,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.entity.User;
 
 public class LoginActivity extends BaseActivity {
 
@@ -83,18 +84,18 @@ public class LoginActivity extends BaseActivity {
                 userNameS = userName.getText().toString();
                 userPwdS = userPwd.getText().toString();
 
-                BmobUser userlogin = new BmobUser();
-                userlogin.setUsername(userNameS);
-                userlogin.setPassword(userPwdS);
+                final User userLogin = new User();
+                userLogin.setUsername(userNameS);
+                userLogin.setPassword(userPwdS);
                 ProgressDialog pd = new ProgressDialog(LoginActivity.this, ProgressDialog.STYLE_SPINNER);
                 pd.setTitle("登录");
                 pd.setMessage("正在登录请稍等...");
                 pd.setIndeterminate(false);
                 pd.setCancelable(false);
                 pd.show();
-                userlogin.login(new SaveListener<BmobUser>() {
+                userLogin.login(new SaveListener<User>() {
                     @Override
-                    public void done(BmobUser bmobUser, BmobException e) {
+                    public void done(User user, BmobException e) {
                         if (e == null) {
                             //用户输入的账号密码正确  记住密码
                             editor = sharedPreferences.edit();
@@ -105,15 +106,15 @@ public class LoginActivity extends BaseActivity {
                             } else {
                                 editor.clear();
                             }
+                            editor.putBoolean("isLogin", true);
                             editor.commit();
                             pd.dismiss();
                             navigateTo(HomeActivity.class);
-                            showToast(bmobUser.getUsername() + "登陆成功");
+                            showToast(user.getUsername() + "登陆成功");
                             finish();
                         } else {
-                            editor.commit();
                             pd.dismiss();
-                            showToast("登陆失败! 错误代码:" +e.getErrorCode());
+                            showToast("登陆失败! 错误代码:" + e.getErrorCode());
                         }
                     }
                 });

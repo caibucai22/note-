@@ -1,17 +1,12 @@
 package cn.henu.cs.note.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -19,6 +14,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.entity.User;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -70,7 +66,6 @@ public class RegisterActivity extends BaseActivity {
             }
         });
         regPwdShowBut2.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if (isSelected) {
@@ -90,12 +85,10 @@ public class RegisterActivity extends BaseActivity {
             public void onClick(View v) {
                 checkUserName();
                 checkPwd();
-                checkPhoneNum();
-                isSecurityCodeRight();
-                if (checkPhoneNum() && checkUserName() && checkPwd() && isSecurityCodeRight()) {
+                if (checkUserName() && checkPwd()) {
 
                     //用户信息保存到数据库  成功实现
-                    BmobUser signuser = new BmobUser();
+                    User signuser = new User();
                     signuser.setUsername(userName.getText().toString());
                     signuser.setPassword(userPwd1.getText().toString());
                     ProgressDialog pd = new ProgressDialog(RegisterActivity.this, ProgressDialog.STYLE_SPINNER);
@@ -104,9 +97,9 @@ public class RegisterActivity extends BaseActivity {
                     pd.setIndeterminate(false);
                     pd.setCancelable(false);
                     pd.show();
-                    signuser.signUp(new SaveListener<BmobUser>() {
+                    signuser.signUp(new SaveListener<User>() {
                         @Override
-                        public void done(BmobUser bmobUser, BmobException e) {
+                        public void done(User user, BmobException e) {
                             if (e == null) {
                                 pd.dismiss();
                                 showToast("注册成功");
@@ -120,7 +113,7 @@ public class RegisterActivity extends BaseActivity {
                     navigateTo(LoginActivity.class);
                     finish();
                 } else {
-                    popInfor.substring(0, popInfor.length() - 1);
+                    popInfor.replace(" ", "");
                     showToast(popInfor);
                 }
                 popInfor = "";
@@ -155,61 +148,31 @@ public class RegisterActivity extends BaseActivity {
 
     //判断密码是否标准
     private boolean checkPwd() {
+        boolean flag = true;
         //获取用户输入的密码
         pwd1 = userPwd1.getText().toString();
         pwd2 = userPwd2.getText().toString();
         //1.第一个密码为空
         if (pwd1.equals("")) {
             popInfor += "密码不能为空！！！\n";
-            return false;
+            flag = false;
         }
         //2.密码过长
         if (pwd1.length() > 12) {
             popInfor += "密码太长！！！\n";
-            return false;
+            flag = false;
         }
         //3.密码过短
         if (pwd1.length() < 6) {
             popInfor += "密码太短！！！\n";
-            return false;
+            flag = false;
         }
         //4.两次输入密码不一致
         if (!pwd1.equals(pwd2)) {
             popInfor += "两次输入的密码不一致！！！\n";
-            return false;
+            flag = false;
         }
-        return true;
-    }
-
-    //判断手机号格式
-    private boolean checkPhoneNum() {
-        //获取用户输入的电话号
-        pnum = phoneNum.getText().toString();
-        //1.判断长度
-        if (pnum.length() == 11) {
-            return true;
-        } else {
-            popInfor += "手机号输入错误！！！\n";
-            return false;
-        }
-        //该功能暂未完成
-//        //2.判断是否是真的电话号
-//        if(){
-//
-//        }
-
-    }
-
-    //判断验证码是否正确
-    private boolean isSecurityCodeRight() {
-        scode = securityCode.getText().toString();
-
-//        //判断是否正确
-//        if (!scode.equals(trueSCode)) {
-//            popInfor += "验证码错误！！！\n";
-//            return false;
-//        }
-        return true;
+        return flag;
     }
 
 }

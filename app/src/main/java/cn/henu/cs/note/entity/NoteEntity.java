@@ -8,22 +8,15 @@ public class NoteEntity implements Serializable {
     private long Id;
     private String title;
     private String content;
-
-    public int getFavorites() {
-        return favorites;
-    }
-
-    public void setFavorites(int favorites) {
-        this.favorites = favorites;
-    }
-
     private String time;
     private int tag;
     private int favorites;
+    private User author;
 
     public NoteEntity() {
 
     }
+
 
     public NoteEntity(String content, String time, int tag) {
         this.content = content;
@@ -44,6 +37,14 @@ public class NoteEntity implements Serializable {
         this.time = time;
         this.favorites = favorites;
         this.tag = tag;
+    }
+
+    public int getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(int favorites) {
+        this.favorites = favorites;
     }
 
     public long getId() {
