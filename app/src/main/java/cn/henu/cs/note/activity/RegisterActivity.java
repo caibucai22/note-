@@ -128,6 +128,11 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void needRefresh() {
+
+    }
+
     //判断用户名是否标准
     private boolean checkUserName() {
         //获取用户输入的用户名

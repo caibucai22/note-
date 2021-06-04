@@ -28,6 +28,7 @@ import android.widget.Toast;
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.activity.LoginActivity;
 import cn.henu.cs.note.activity.SettingsActivity;
+import cn.henu.cs.note.activity.set;
 import cn.henu.cs.note.utils.CRUD;
 import cn.henu.cs.note.utils.NoteDataBase;
 
@@ -131,7 +132,7 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.listView3:
-                Intent intent = new Intent(context, SettingsActivity.class);
+                Intent intent = new Intent(context, set.class);
                 my_Fragment.this.startActivity(intent);
                 break;
             case R.id.listView4:

@@ -115,6 +115,11 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void needRefresh() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.edit_note_menu, menu);
         return super.onCreateOptionsMenu(menu);

@@ -1,23 +1,46 @@
 package cn.henu.cs.note.activity;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.henu.cs.note.R;
+
 public abstract class BaseActivity extends AppCompatActivity {
     public Context mContext;
+    protected BroadcastReceiver receiver;
+    public final String ACTION = "NIGHT_SWITCH";
+    protected IntentFilter filter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
+
 
         setContentView(initLayout());
+        mContext = this;
+        setNightMode();
+        filter = new IntentFilter();
+        filter.addAction(ACTION);
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("TAG", "onReceive: needRefresh");
+                needRefresh();
+            }
+        };
+        registerReceiver(receiver, filter);
         initView();
         initData();
     }
@@ -37,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public ProgressDialog crateProgressDialog(String Title,String Message,int Style) {
+    public ProgressDialog crateProgressDialog(String Title, String Message, int Style) {
         ProgressDialog pd = new ProgressDialog(mContext);
         //设置进度条风格为圆形
         pd.setProgressStyle(Style);
@@ -48,5 +71,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         return pd;
     }
 
+    public boolean isNightMode() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        return sharedPreferences.getBoolean("nightMode", false);
+    }
 
+    public void setNightMode() {
+        if (isNightMode()) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            Log.d("TAG", "setNightMode: " + sharedPreferences.getBoolean("nightMode", false));
+            this.setTheme(R.style.NightTheme);
+        } else setTheme(R.style.DayTheme);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    protected abstract void needRefresh();
 }

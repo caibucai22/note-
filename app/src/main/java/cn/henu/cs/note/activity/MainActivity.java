@@ -1,17 +1,14 @@
 package cn.henu.cs.note.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -25,7 +22,8 @@ import cn.henu.cs.note.fragment.favorites_Fragment;
 import cn.henu.cs.note.fragment.home_fragment;
 import cn.henu.cs.note.fragment.my_Fragment;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener, AbsListView.RecyclerListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, AbsListView.RecyclerListener {
+
     private ViewPager2 myViewPager2;
     //底部导航栏的组件
     private LinearLayout homeLLayout, favoritesLLayout, myLLayout;
@@ -34,10 +32,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
     private MyFragmentPagerAdapter pagerAdapter;
 
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected int initLayout() {
-        return R.layout.home_activity;
+        return R.layout.main_activity;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void initData() {
 
-
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         fragments.add(new home_fragment());
         fragments.add(new favorites_Fragment());
@@ -140,5 +140,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onMovedToScrapHeap(View view) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String TAG = "e";
+        boolean isNightTheme = sharedPreferences.getBoolean("nightMode", false);
+        if(isNightTheme){
+            this.setTheme(R.style.NightTheme);
+            Log.e(TAG, "onResume: 现在是黑夜模式" );
+        }else {
+            setTheme(R.style.DayTheme);
+            Log.e(TAG, "onResume: 现在是白天模式" );
+        }
+    }
+    protected void needRefresh() {
+        Log.d("TAG", "needRefresh: Main");
+        setNightMode();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

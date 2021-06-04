@@ -5,13 +5,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
+import androidx.preference.SwitchPreferenceCompat;
 
 
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.fragment.SettingsFragment;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    public SwitchPreferenceCompat switchPreferenceCompat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
 
     }
 

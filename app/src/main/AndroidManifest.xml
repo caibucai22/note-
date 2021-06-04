@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DayTheme">
+        <activity android:name=".activity.set"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:label="Note++">
@@ -36,7 +37,7 @@
             android:name=".activity.LoginActivity"
             android:label="登陆界面" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.MainActivity"
             android:label="Home" />
         <activity
             android:name=".activity.RegisterActivity"

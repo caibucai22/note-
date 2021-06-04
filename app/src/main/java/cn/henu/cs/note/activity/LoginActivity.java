@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.henu.cs.note.R;
@@ -109,7 +108,7 @@ public class LoginActivity extends BaseActivity {
                             editor.putBoolean("isLogin", true);
                             editor.commit();
                             pd.dismiss();
-                            navigateTo(HomeActivity.class);
+                            navigateTo(MainActivity.class);
                             showToast(user.getUsername() + "登陆成功");
                             finish();
                         } else {
@@ -127,5 +126,10 @@ public class LoginActivity extends BaseActivity {
                 navigateTo(RegisterActivity.class);
             }
         });
+    }
+
+    @Override
+    protected void needRefresh() {
+
     }
 }
