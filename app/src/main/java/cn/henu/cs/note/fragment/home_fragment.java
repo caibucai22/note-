@@ -26,6 +26,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +129,17 @@ public class home_fragment extends Fragment {
         home_toolbar_title = v.findViewById(R.id.home_toolbar_title);
         homeToolbar.setTitle("");
         home_toolbar_title.setText("主页");
-
+        /**
+         * 下拉刷新
+         */
+        RefreshLayout refreshLayout = (RefreshLayout) v.findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(context));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(refreshDataFromBmob());//传入false表示刷新失败
+            }
+        });
 
         newNoteBut = v.findViewById(R.id.new_note_but);
         recyclerView = v.findViewById(R.id.home_recyclerView);
@@ -134,7 +147,6 @@ public class home_fragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new NoteAdapter(context, noteList);
-
         refreshRecyclerView();
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -188,6 +200,11 @@ public class home_fragment extends Fragment {
             }
         }));
         return v;
+    }
+
+    private boolean refreshDataFromBmob() {
+        Toast.makeText(context, "刷新成功",Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     @Override

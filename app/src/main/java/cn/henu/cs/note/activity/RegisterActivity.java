@@ -34,8 +34,6 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        //默认初始化
-        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
 
         //1.获取各组件ID
         regBut = findViewById(R.id.regBut);

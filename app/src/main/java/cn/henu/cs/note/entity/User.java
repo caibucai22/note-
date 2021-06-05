@@ -70,7 +70,8 @@ public class User extends BmobUser {
     /**
      * 账号密码登录
      */
-    public void login(final View view, String username, String password) {
+    public boolean login(final View view, String username, String password) {
+        final boolean isL = false;
         final BmobUser user = new BmobUser();
         //此处替换为你的用户名
         user.setUsername(username);
@@ -81,12 +82,14 @@ public class User extends BmobUser {
             public void done(User bmobUser, BmobException e) {
                 if (e == null) {
                     User user = BmobUser.getCurrentUser(User.class);
+
                     Snackbar.make(view, "登录成功：" + user.getUsername(), Snackbar.LENGTH_LONG).show();
                 } else {
                     Snackbar.make(view, "登录失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             }
         });
+        return false;
     }
 
 

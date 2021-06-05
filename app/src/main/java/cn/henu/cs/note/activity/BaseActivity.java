@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.bmob.v3.Bmob;
 import cn.henu.cs.note.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -25,8 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
         setContentView(initLayout());
         mContext = this;
         setNightMode();

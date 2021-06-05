@@ -1,7 +1,10 @@
 package cn.henu.cs.note.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -10,30 +13,41 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.entity.User;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText userName, userPwd;
     private Button loginBut, registerBut;
     private ImageButton pwdImageBut;
     private CheckBox rememberCheckBox;
-    private String userNameS, userPwdS;//用于验证用户名和密码
     private boolean showPassword = false;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private Context context;
 
     @Override
-    protected int initLayout() {
-        return R.layout.login_layout;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
+        setContentView(R.layout.login_layout);
+        context = this;
+        initView();
+        initData();
     }
 
-    @Override
+
     protected void initView() {
         //1.获取各组件ID
         userName = findViewById(R.id.UserID);
@@ -44,14 +58,7 @@ public class LoginActivity extends BaseActivity {
         rememberCheckBox = findViewById(R.id.rememberCheckBox);
     }
 
-    @Override
     protected void initData() {
-        //默认初始化
-        Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
-        /**
-         * 默认初始化
-         * 有更加细致的初始化待选项，以后再进行添加
-         */
 
         //2.注册小眼睛（密码显示）监听器
         pwdImageBut.setOnClickListener(new View.OnClickListener() {
@@ -79,57 +86,96 @@ public class LoginActivity extends BaseActivity {
         loginBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                login();
                 //获得用户输入的用户名或者密码
-                userNameS = userName.getText().toString();
-                userPwdS = userPwd.getText().toString();
-
-                final User userLogin = new User();
-                userLogin.setUsername(userNameS);
-                userLogin.setPassword(userPwdS);
-                ProgressDialog pd = new ProgressDialog(LoginActivity.this, ProgressDialog.STYLE_SPINNER);
-                pd.setTitle("登录");
-                pd.setMessage("正在登录请稍等...");
-                pd.setIndeterminate(false);
-                pd.setCancelable(false);
-                pd.show();
-                userLogin.login(new SaveListener<User>() {
-                    @Override
-                    public void done(User user, BmobException e) {
-                        if (e == null) {
-                            //用户输入的账号密码正确  记住密码
-                            editor = sharedPreferences.edit();
-                            if (rememberCheckBox.isChecked()) {
-                                editor.putBoolean("isRemember", true);
-                                editor.putString("username", userNameS);
-                                editor.putString("password", userPwdS);
-                            } else {
-                                editor.clear();
-                            }
-                            editor.putBoolean("isLogin", true);
-                            editor.commit();
-                            pd.dismiss();
-                            navigateTo(MainActivity.class);
-                            showToast(user.getUsername() + "登陆成功");
-                            finish();
-                        } else {
-                            pd.dismiss();
-                            showToast("登陆失败! 错误代码:" + e.getErrorCode());
-                        }
-                    }
-                });
+//                final User userLogin = new User();
+//                userLogin.setUsername(userNameS);
+//                userLogin.setPassword(userPwdS);
+//                ProgressDialog pd = new ProgressDialog(LoginActivity.this, ProgressDialog.STYLE_SPINNER);
+//                pd.setTitle("登录");
+//                pd.setMessage("正在登录请稍等...");
+//                pd.setIndeterminate(false);
+//                pd.setCancelable(false);
+//                pd.show();
+//                userLogin.login(new SaveListener<User>() {
+//                    @Override
+//                    public void done(User user, BmobException e) {
+//                        if (e == null) {
+//                            //用户输入的账号密码正确  记住密码
+//                            editor = sharedPreferences.edit();
+//                            if (rememberCheckBox.isChecked()) {
+//                                editor.putBoolean("isRemember", true);
+//                                editor.putString("username", userNameS);
+//                                editor.putString("password", userPwdS);
+//                            } else {
+//                                editor.clear();
+//                            }
+//                            editor.putBoolean("isLogin", true);
+//                            editor.commit();
+//                            pd.dismiss();
+//                            navigateTo(MainActivity.class);
+//                            showToast(user.getUsername() + "登陆成功");
+//                            finish();
+//                        } else {
+//                            pd.dismiss();
+//                            showToast("登陆失败! 错误代码:" + e.getErrorCode());
+//                        }
+//                    }
+//                });
             }
         });
         //5.注册 注册按钮监听器
         registerBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateTo(RegisterActivity.class);
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
 
-    @Override
-    protected void needRefresh() {
+    void login() {
+        String userAccount = userName.getText().toString().trim();
+        String userPassword = userPwd.getText().toString().trim();
 
+        if (userAccount.isEmpty()) {
+            Toast.makeText(context, "请输入用户账号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (userPassword.isEmpty()) {
+            Toast.makeText(context, "请输入用户密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ProgressDialog pd = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
+        pd.setTitle("登录");
+        pd.setMessage("正在登录请稍等...");
+        pd.setIndeterminate(false);
+        pd.setCancelable(false);
+        pd.show();
+        BmobUser.loginByAccount(userAccount, userPassword, new LogInListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+
+                if (e == null) {
+                    editor = sharedPreferences.edit();
+                    if (rememberCheckBox.isChecked()) {
+                        editor.putBoolean("isRemember", true);
+                        editor.putString("username", userAccount);
+                        editor.putString("password", userPassword);
+                    } else {
+                        editor.clear();
+                    }
+                    editor.putBoolean("isLogin", true);
+                    editor.commit();
+                    pd.dismiss();
+                    startActivity(new Intent(context, MainActivity.class));
+                    Toast.makeText(context, user.getUsername() + "登陆成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    pd.dismiss();
+                    Toast.makeText(context, e.getErrorCode() + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

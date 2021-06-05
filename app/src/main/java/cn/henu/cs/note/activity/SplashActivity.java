@@ -18,7 +18,6 @@ import cn.henu.cs.note.R;
 public class SplashActivity extends AppCompatActivity {
     private int DELAYED_TIME = 5;
     private TextView jumpText;
-    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,27 +48,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void jumpActivity() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPreferences.getBoolean("isLogin", false)) {
             startActivity(new Intent(this, MainActivity.class));
         } else {
             startActivity(new Intent(this, LoginActivity.class));
         }
-        String TAG = "jumpActivity";
-        Log.e(TAG, "jumpActivity: 执行了跳转界面");
         finish();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            Intent intent = new Intent();
-            intent.setAction("NIGHT_SWITCH");
-            sendBroadcast(intent);
-            finish();
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
 }

@@ -44,11 +44,16 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
 //    bomb后端云依赖库
-    implementation 'cn.bmob.android:bmob-sdk:3.7.8'
+    implementation 'io.github.bmob:android-sdk:3.8.4'
     implementation "io.reactivex.rxjava2:rxjava:2.2.8"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.google.code.gson:gson:2.8.5'
-    compileOnly 'com.google.android.wearable:wearable:2.6.0'
+
+//下拉刷新
+    implementation 'androidx.appcompat:appcompat:1.0.0'                 //必须 1.0.0 以上
+
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
 }
