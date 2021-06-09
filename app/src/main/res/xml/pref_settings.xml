@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory android:title="账号管理">
+        <Preference
+            android:key="setting_header"
+            android:title="上传头像" />
+
+        <Preference
+            android:key="setting_email"
+            android:title="绑定邮箱" />
+
+        <Preference
+            android:key="setting_password"
+            android:title="更改密码" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="消息提醒">
+        <SwitchPreference
+            android:key="patient_notification"
+            android:title="静默通知" />
+        <SwitchPreference
+            android:key="close_notification"
+            android:title="关闭通知" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="界面设置">
+
+        <SwitchPreferenceCompat
+            android:key="dark_mode"
+            android:title="深色模式" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="隐私设置">
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="其他相关 ">
+       <Preference
+           android:key="update"
+            android:title="检查新版本"/>
+        <Preference
+            android:key="about"
+            android:title="关于"/>
+    </PreferenceCategory>
+
+
+
+</PreferenceScreen>
