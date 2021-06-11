@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -55,7 +56,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 isSelected1 = !isSelected1;
-                regPwdShowBut1.setSelected(!isSelected1);
+                regPwdShowBut1.setSelected(isSelected1);
                 if (isSelected1) {
                     userPwd1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
@@ -68,11 +69,10 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 isSelected2 = !isSelected2;
-                regPwdShowBut2.setSelected(!isSelected2);
+                regPwdShowBut2.setSelected(isSelected2);
                 if (isSelected2) {
                     userPwd2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-
                     userPwd2.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
@@ -102,15 +102,18 @@ public class RegisterActivity extends BaseActivity {
                             if (e == null) {
                                 pd.dismiss();
                                 showToast("注册成功");
+                                //注册成功跳转回登陆界面
+                                navigateTo(LoginActivity.class);
+                                finish();
                             } else {
                                 pd.dismiss();
-                                showToast("注册失败! 错误代码:" + e.getErrorCode());
+                                if(e.getErrorCode()==202){
+                                    showToast("用户名已存在！");
+                                }
+                                else showToast("注册失败! 错误代码:" + e.getErrorCode());
                             }
                         }
                     });
-                    //注册成功跳转回登陆界面
-                    navigateTo(LoginActivity.class);
-                    finish();
                 } else {
                     popInfor.replace(" ", "");
                     showToast(popInfor);

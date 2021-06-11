@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
+import cn.henu.cs.note.utils.CRUD;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class NoteEntity extends BmobObject implements Serializable {
     private long Id;
@@ -124,6 +127,25 @@ public class NoteEntity extends BmobObject implements Serializable {
             result = title;
         }
         return result;
+    }
+
+    public  void deleteAllNoteFromBmob(){
+
+    }
+    public static long NotesNumber(){
+        CRUD crud = new CRUD(getApplicationContext());
+        crud.open();
+        long num = crud.getAllNoteNum();
+        crud.close();
+        return num;
+    }
+
+    public static long FavoriteNotesNumber(){
+        CRUD crud = new CRUD(getApplicationContext());
+        crud.open();
+        long num = crud.getAllFavoritesNoteNum();
+        crud.close();
+        return num;
     }
 
 }

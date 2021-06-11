@@ -91,40 +91,44 @@ public class favorites_Fragment extends Fragment {
         deleteAll.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Dialog deleteAllDialog = new AlertDialog.Builder(context)
-                        .setMessage("确定取消收藏全部笔记?")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                CRUD op = new CRUD(context);
-                                op.open();
-                                for (int i=0; i<favoritesNotes.size(); i++) {
-                                    favoritesNotes.get(i).setFavorites(0);
-                                    op.updateNote(favoritesNotes.get(i));
-                                    favoritesNotes.get(i).update(new UpdateListener() {
-                                        @Override
-                                        public void done(BmobException e) {
-                                            if (e == null) {
-                                                Log.e("TAG", "done: 数据更新成功");
-                                            } else {
-                                                Log.e("BMOB", e.toString());
-                                                Log.e("TAG", "done: 数据更新失败");
+                if (NoteEntity.FavoriteNotesNumber() > 0) {
+                    Dialog deleteAllDialog = new AlertDialog.Builder(context)
+                            .setMessage("确定取消收藏全部笔记?")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    CRUD op = new CRUD(context);
+                                    op.open();
+                                    for (int i = 0; i < favoritesNotes.size(); i++) {
+                                        favoritesNotes.get(i).setFavorites(0);
+                                        op.updateNote(favoritesNotes.get(i));
+                                        favoritesNotes.get(i).update(new UpdateListener() {
+                                            @Override
+                                            public void done(BmobException e) {
+                                                if (e == null) {
+                                                    Log.e("TAG", "done: 数据更新成功");
+                                                } else {
+                                                    Log.e("BMOB", e.toString());
+                                                    Log.e("TAG", "done: 数据更新失败");
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }
+                                    op.close();
+                                    refreshRecyclerView();
+                                    Toast.makeText(context, "全部取消收藏", Toast.LENGTH_SHORT).show();
                                 }
-                                op.close();
-                                refreshRecyclerView();
-                                Toast.makeText(context, "全部取消收藏", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "取消收藏操作取消！", Toast.LENGTH_SHORT).show();
-                            }
-                        }).create();
-                deleteAllDialog.show();
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(context, "取消收藏操作取消！", Toast.LENGTH_SHORT).show();
+                                }
+                            }).create();
+                    deleteAllDialog.show();
+                } else {
+                    Toast.makeText(context, "没有收藏任何笔记", Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
         });
@@ -245,7 +249,7 @@ public class favorites_Fragment extends Fragment {
                 op.updateNote(newNote);
                 op.close();
             }
-        }else if (returnMode == 0) {
+        } else if (returnMode == 0) {
             String content = data.getExtras().getString("content");
             if (!content.isEmpty()) {
 

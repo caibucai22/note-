@@ -18,6 +18,7 @@ import cn.henu.cs.note.R;
 public class SplashActivity extends AppCompatActivity {
     private int DELAYED_TIME = 5;
     private TextView jumpText;
+    Thread thread;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class SplashActivity extends AppCompatActivity {
 
         jumpText = findViewById(R.id.jumpText);
 
-        new Thread() {
+        thread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 while (DELAYED_TIME >= 0) {
                     try {
@@ -39,12 +41,14 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 jumpActivity();
             }
-        }.start();
+        });
+        thread.start();
     }
 
 
     public void jump(View view) {
-        DELAYED_TIME = -1;
+        thread.interrupt();
+        jumpActivity();
     }
 
     public void jumpActivity() {
