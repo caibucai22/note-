@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.activity.LoginActivity;
+import cn.henu.cs.note.activity.MainActivity;
 import cn.henu.cs.note.activity.SettingsActivity;
 import cn.henu.cs.note.activity.set;
 import cn.henu.cs.note.utils.CRUD;
@@ -35,6 +37,7 @@ import cn.henu.cs.note.utils.NoteDataBase;
 public class my_Fragment extends Fragment implements View.OnClickListener {
 
     private RelativeLayout listView1, listView3, listView4;
+    private LinearLayout toHomeFragment, toMyLoveFragment;
     private long favoritesNum = 0;
     private long allNotesNum = 0;
     private TextView sumPieces, storePieces, remainNum;
@@ -63,8 +66,7 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
         myToolbar.inflateMenu(R.menu.my_menu);
         myToolbar.setTitle("");
         my_toolbar_title.setText("我的");
-        listView3 = v.findViewById(R.id.listView3);
-        listView3.setOnClickListener(this);
+
 
         myToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -105,7 +107,15 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
                 editor.commit();
             }
         });
+
+        toHomeFragment = v.findViewById(R.id.to_home_fragment);
+        toHomeFragment.setOnClickListener(this);
+        toMyLoveFragment = v.findViewById(R.id.to_my_love_fragment);
+        toMyLoveFragment.setOnClickListener(this);
         listView1 = v.findViewById(R.id.listView1);
+        listView1.setOnClickListener(this);
+        listView3 = v.findViewById(R.id.listView3);
+        listView3.setOnClickListener(this);
         listView4 = v.findViewById(R.id.listView4);
         listView4.setOnClickListener(this);
         return v;
@@ -131,6 +141,17 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.listView1:
+            case R.id.to_home_fragment:
+                Intent intent0 = new Intent(MainActivity.INTENT_FILTER);
+                intent0.putExtra(MainActivity.INTENT_NAME,MainActivity.GO_TO_HOME);
+                context.sendBroadcast(intent0);
+                break;
+            case R.id.to_my_love_fragment:
+                Intent intent1= new Intent(MainActivity.INTENT_FILTER);
+                intent1.putExtra(MainActivity.INTENT_NAME,MainActivity.GO_TO_MY_LOVE);
+                context.sendBroadcast(intent1);
+                break;
             case R.id.listView3:
                 Intent intent = new Intent(context, set.class);
                 my_Fragment.this.startActivity(intent);
