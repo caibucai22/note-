@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:theme="@style/DayTheme">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/setActivityToolbar"
@@ -13,10 +12,10 @@
         android:layout_height="wrap_content"
         android:background="?attr/toolbar_color"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="?attr/whole_background"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="设置界面"
-        app:titleTextColor="?attr/titleColor" />
+        app:titleTextColor="?attr/text_color" />
 
     <Switch
         android:id="@+id/switch1"

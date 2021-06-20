@@ -18,6 +18,7 @@
         app:popupTheme="?attr/popupTheme"
         app:titleTextColor="?attr/titleColor">
 
+
         <TextView
             android:id="@+id/my_toolbar_title"
             android:layout_width="wrap_content"

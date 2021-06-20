@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="?attr/write_layout_background">
+        android:background="?attr/main_layout_background">
 
         <EditText
             android:id="@+id/note_activity_title"
@@ -29,7 +29,6 @@
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp"
-            android:background="?attr/write_layout_background"
             android:hint="请输入标题"
             android:textColorHint="?attr/EditText_text_hint_color"
             android:textColor="?attr/EditText_text_color"
