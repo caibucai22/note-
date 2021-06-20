@@ -1,6 +1,6 @@
 package cn.henu.cs.note.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -18,7 +18,16 @@ import cn.henu.cs.note.R;
 public class set extends BaseActivity {
     private Switch aSwitch;
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(initLayout());
+
+        initView();
+        initData();
+    }
 
     @Override
     protected int initLayout() {
@@ -29,6 +38,7 @@ public class set extends BaseActivity {
     protected void initView() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Intent intent = getIntent();
 
         aSwitch = findViewById(R.id.switch1);
 
@@ -66,7 +76,7 @@ public class set extends BaseActivity {
 
     @Override
     protected void needRefresh() {
-
+        Log.e("TAG", "needRefresh: UserSettings +" + sharedPreferences.getBoolean("nightMode", false));
     }
 
     private void setNightModePref(boolean night) {
@@ -79,18 +89,16 @@ public class set extends BaseActivity {
 
     private void setSelfNightMode() {
         //重新赋值并重启本activity
-
         super.setNightMode();
+        Log.e("TAG", "setSelfNightMode: UserSettings +" + sharedPreferences.getBoolean("nightMode", false));
         Intent intent = new Intent(this, set.class);
-        //intent.putExtra("night_change", !night_change); //重启一次，正负颠倒。最终为正值时重启MainActivity。
-
         startActivity(intent);
         finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             Intent intent = new Intent();
             intent.setAction("NIGHT_SWITCH");
             sendBroadcast(intent);

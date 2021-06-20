@@ -1,6 +1,7 @@
 package cn.henu.cs.note.activity;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -28,6 +31,14 @@ public class RegisterActivity extends BaseActivity {
     String uname, pwd1, pwd2, pnum, scode;//用于获取用户输入
     String popInfor = "";//提示信息
     String trueSCode;//真正的验证码
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(initLayout());
+        initView();
+        initData();
+    }
 
     @Override
     protected int initLayout() {

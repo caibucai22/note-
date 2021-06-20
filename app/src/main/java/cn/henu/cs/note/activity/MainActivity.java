@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -40,6 +42,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     MyReceiver receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(initLayout());
+        initView();
+        initData();
+    }
 
     @Override
     protected int initLayout() {
@@ -151,19 +162,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        String TAG = "e";
-        boolean isNightTheme = sharedPreferences.getBoolean("nightMode", false);
-        if(isNightTheme){
-            this.setTheme(R.style.NightTheme);
-            Log.e(TAG, "onResume: 现在是黑夜模式" );
-        }else {
-            setTheme(R.style.DayTheme);
-            Log.e(TAG, "onResume: 现在是白天模式" );
-        }
-    }
     protected void needRefresh() {
         Log.d("TAG", "needRefresh: Main");
         setNightMode();

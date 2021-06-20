@@ -19,13 +19,13 @@
     <attr name="addPlanTag" format="string"/>
     <attr name="toolbarTheme" format="string"/>
 
-
+    <attr name="backPic" format="string"/>
     <attr name="EditText_background_color" format="color"/>
     <attr name="EditText_text_color" format="color"/>
     <attr name="write_layout_backgroup" format="string"/>
     <attr name="main_home_photo" format="string"/>
     <attr name="main_home_text" format="color"/>
-
+    <attr name="testcolor" format="color"/>
     <attr name="picture_color" format="string"/>
     <attr name="text_color" format="color"/>
     <attr name="main_layout_backgroud" format="string"/>

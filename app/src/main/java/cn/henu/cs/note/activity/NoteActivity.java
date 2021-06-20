@@ -18,9 +18,8 @@ import androidx.appcompat.widget.Toolbar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.bmob.v3.http.I;
 import cn.henu.cs.note.R;
-import cn.henu.cs.note.utils.CRUD;
+
 
 import static android.content.ContentValues.TAG;
 
@@ -47,6 +46,9 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(initLayout());
+        initView();
+        initData();
     }
 
     @Override
@@ -118,7 +120,10 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void needRefresh() {
-
+        Log.d(TAG, "needRefresh: Edit");
+        setNightMode();
+        Intent intent = new Intent(this, NoteActivity.class);
+        startActivity(intent);
     }
 
     @Override

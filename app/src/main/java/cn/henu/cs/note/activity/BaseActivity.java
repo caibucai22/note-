@@ -27,9 +27,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "53c2ee7edfe3b609d97de4d350772ed6");
-        setContentView(initLayout());
-        mContext = this;
+
         setNightMode();
+
+        mContext = this;
+
+
         filter = new IntentFilter();
         filter.addAction(ACTION);
 
@@ -41,8 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         };
         registerReceiver(receiver, filter);
-        initView();
-        initData();
+
     }
 
     protected abstract int initLayout();
@@ -79,15 +81,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setNightMode() {
         if (isNightMode()) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            Log.d("TAG", "setNightMode: " + sharedPreferences.getBoolean("nightMode", false));
             this.setTheme(R.style.NightTheme);
-        } else setTheme(R.style.DayTheme);
-
+        } else this.setTheme(R.style.DayTheme);
+        Log.e("TAG", "我是baseActivity: " + isNightMode());
     }
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
         unregisterReceiver(receiver);
     }
