@@ -22,15 +22,16 @@
 
     <attr name="EditText_background_color" format="color"/>
     <attr name="EditText_text_color" format="color"/>
-    <attr name="write_layout_backgroup" format="string"/>
+    <attr name="EditText_text_hint_color" format="color"/>
+    <attr name="write_layout_background" format="string"/>
     <attr name="main_home_photo" format="string"/>
     <attr name="main_home_text" format="color"/>
 
     <attr name="picture_color" format="string"/>
     <attr name="text_color" format="color"/>
-    <attr name="main_layout_backgroud" format="string"/>
-    <attr name="whole_backgroud" format="string"/>
-    <attr name="bottom_layout_backgroud" format="string"/>
-    <attr name="item_note_backgroup" format="color"/>
+    <attr name="main_layout_background" format="string"/>
+    <attr name="whole_background" format="string"/>
+    <attr name="bottom_layout_background" format="string"/>
+    <attr name="item_note_background" format="color"/>
     <attr name="item_note_title" format="color"/>
 </resources>

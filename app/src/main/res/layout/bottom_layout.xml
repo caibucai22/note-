@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="?attr/bottom_layout_backgroud"
+    android:background="?attr/bottom_layout_background"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="?attr/bottom_layout_backgroud">
+        android:background="?attr/bottom_layout_background">
 
         <ImageView
             android:id="@+id/iv_bottom_home"

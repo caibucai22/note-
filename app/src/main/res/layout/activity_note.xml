@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/write_layout_backgroup"
+    android:background="?attr/write_layout_background"
     tools:context=".activity.NoteActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/note_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/write_layout_backgroup"
+        android:background="?attr/write_layout_background"
         android:elevation="4dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="?attr/write_layout_backgroup">
+        android:background="?attr/write_layout_background">
 
         <EditText
             android:id="@+id/note_activity_title"
@@ -29,10 +29,10 @@
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp"
-            android:background="?attr/write_layout_backgroup"
+            android:background="?attr/write_layout_background"
             android:hint="请输入标题"
+            android:textColorHint="?attr/EditText_text_hint_color"
             android:textColor="?attr/EditText_text_color"
-            android:textColorHint="@color/text_gray"
             android:textSize="30sp" />
 
         <View
@@ -51,9 +51,9 @@
             android:background="@null"
             android:gravity="left"
             android:hint="在这里挥洒你的创意吧"
+            android:textColorHint="?attr/EditText_text_hint_color"
             android:scrollbars="vertical"
-            android:textColor="@color/black"
-            android:textColorHint="@color/text_gray"
+            android:textColor="?attr/EditText_text_color"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -63,7 +63,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
-        android:background="?attr/write_layout_backgroup">
+        android:background="?attr/write_layout_background">
 
 
         <ImageView
