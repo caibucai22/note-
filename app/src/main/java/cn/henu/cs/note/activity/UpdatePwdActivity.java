@@ -63,6 +63,9 @@ public class UpdatePwdActivity extends AppCompatActivity {
         //传给imagview进行显示
         header.setImageBitmap(bm);
 
+        userName = findViewById(R.id.username_update);
+        userName.setText(BmobUser.getCurrentUser(User.class).getUsername());
+
         //更改密码
         oldPwd = findViewById(R.id.oldPwd);
         newPwd = findViewById(R.id.newPwd);

@@ -1,12 +1,16 @@
 package cn.henu.cs.note.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -20,11 +24,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.InputStream;
 
 import cn.bmob.v3.BmobUser;
 import cn.henu.cs.note.R;
@@ -37,12 +44,15 @@ import cn.henu.cs.note.entity.User;
 import cn.henu.cs.note.utils.CRUD;
 import cn.henu.cs.note.utils.NoteDataBase;
 
+import static cn.henu.cs.note.utils.GraphProcess.toRoundBitmap;
+
 public class my_Fragment extends Fragment implements View.OnClickListener {
 
     private RelativeLayout listView1, listView3, listView4;
     private LinearLayout toHomeFragment, toMyLoveFragment;
     private long favoritesNum = 0;
     private long allNotesNum = 0;
+    private ImageView header_my;
     private TextView sumPieces, storePieces, remainNum;
     private TextView userName;
     private EditText mySignature;
@@ -83,6 +93,16 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
                 return false;
             }
         });
+
+        header_my = v.findViewById(R.id.header_my);
+        Resources r = this.getResources();
+        @SuppressLint("ResourceType") InputStream is = r.openRawResource(R.drawable.header);
+        BitmapDrawable bmpDraw = new BitmapDrawable(is);
+        Bitmap bmp = bmpDraw.getBitmap();
+        // 将图片转换成圆形图片
+        Bitmap bm = toRoundBitmap(bmp);
+        //传给imagview进行显示
+        header_my.setImageBitmap(bm);
 
         sumPieces = v.findViewById(R.id.my_fragment_pieces);
         storePieces = v.findViewById(R.id.my_fragment_storePieces);

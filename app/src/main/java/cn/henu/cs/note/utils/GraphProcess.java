@@ -17,9 +17,9 @@ public class GraphProcess {
         int r = 0;
         //取最短边做边长
         if(width > height) {
-            r = height;
+            r = height-2;
         } else {
-            r = width;
+            r = width-2;
         }
         //构建一个bitmap
         Bitmap backgroundBmp = Bitmap.createBitmap(width,
