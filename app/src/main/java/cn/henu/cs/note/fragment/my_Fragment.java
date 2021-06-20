@@ -26,11 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.bmob.v3.BmobUser;
 import cn.henu.cs.note.R;
+import cn.henu.cs.note.Settings;
 import cn.henu.cs.note.activity.LoginActivity;
 import cn.henu.cs.note.activity.MainActivity;
 import cn.henu.cs.note.activity.SettingsActivity;
 import cn.henu.cs.note.activity.set;
+import cn.henu.cs.note.entity.User;
 import cn.henu.cs.note.utils.CRUD;
 import cn.henu.cs.note.utils.NoteDataBase;
 
@@ -41,6 +44,7 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
     private long favoritesNum = 0;
     private long allNotesNum = 0;
     private TextView sumPieces, storePieces, remainNum;
+    private TextView userName;
     private EditText mySignature;
     private Context context;
 
@@ -84,8 +88,11 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
         storePieces = v.findViewById(R.id.my_fragment_storePieces);
         remainNum = v.findViewById(R.id.my_fragment_remainNum);
         mySignature = v.findViewById(R.id.my_fragment_mySignature);
+        userName = v.findViewById(R.id.username_my);
+
         upData();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        userName.setText(BmobUser.getCurrentUser(User.class).getUsername());
         if (sharedPreferences.getString("mySignature", "") != null) {
             mySignature.setText(sharedPreferences.getString("mySignature", ""));
         }
@@ -153,7 +160,7 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
                 context.sendBroadcast(intent1);
                 break;
             case R.id.listView3:
-                Intent intent = new Intent(context, set.class);
+                Intent intent = new Intent(context, SettingsActivity.class);
                 my_Fragment.this.startActivity(intent);
                 break;
             case R.id.listView4:

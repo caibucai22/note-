@@ -39,25 +39,42 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/header_my"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_masks_24"/>
-            <EditText
-                android:id="@+id/my_fragment_mySignature"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:layout_gravity="bottom"
-                android:background="@null"
-                android:hint="快来编辑你的个性签名吧"
-                android:textColorHint="?attr/EditText_text_hint_color"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="18dp"
-                android:textColor="?attr/EditText_text_color"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="2sp">
+                <TextView
+                    android:id="@+id/username_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户名"
+                    android:textColor="?attr/text_color"
+                    android:textSize="24sp"
+                    android:layout_marginTop="16sp"
+                    android:layout_marginBottom="3dp"/>
+                <EditText
+                    android:id="@+id/my_fragment_mySignature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom"
+                    android:background="@null"
+                    android:hint="快来编辑你的个性签名吧"
+                    android:textColorHint="?attr/EditText_text_hint_color"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="18dp"
+                    android:textColor="?attr/EditText_text_color"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/my_fragment_remainNum"
@@ -156,7 +173,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--    测试一下 settings 页面-->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -206,7 +222,8 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@color/grey"
+                android:layout_marginTop="5sp"/>
 
             <RelativeLayout
                 android:id="@+id/listView2"
@@ -246,7 +263,8 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@color/grey"
+                android:layout_marginTop="5sp"/>
 
             <RelativeLayout
                 android:id="@+id/listView3"
@@ -285,7 +303,8 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@color/grey"
+                android:layout_marginTop="5sp"/>
 
             <RelativeLayout
                 android:id="@+id/listView4"

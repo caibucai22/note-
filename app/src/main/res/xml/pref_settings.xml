@@ -30,7 +30,7 @@
 
     <PreferenceCategory android:title="界面设置">
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
             android:key="dark_mode"
             android:title="深色模式" />
 
