@@ -36,6 +36,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
     private String old_title = "";
     private int old_Tag = 1;
     private int old_favorites = 0;
+    private String old_object_id = "";
     private long id = 0;
     private int openMode = 0;    //4：代表是新建的笔记， 3：代表是打开原来的笔记
     private int tag = 1;
@@ -104,6 +105,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
             old_time = getIntent.getStringExtra("time");
             old_title = getIntent.getStringExtra("title");
             old_favorites = getIntent.getIntExtra("favorites", 0);
+            old_object_id = getIntent.getStringExtra("object_id");
 
             note_activity_title.setText(old_title);
             if (old_title.length() != 0) {
@@ -137,15 +139,15 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (openMode == 4){ // new note
+                                if (openMode == 4) { // new note
                                     intent.putExtra("mode", -1);
-                                    Log.e(TAG, "NoteActivity: 我发出了删除信息"+"-1");
+                                    Log.e(TAG, "NoteActivity: 我发出了删除信息" + "-1");
                                     setResult(RESULT_OK, intent);
-                                }
-                                else { // existing note
+                                } else { // existing note
                                     intent.putExtra("mode", 2);
                                     intent.putExtra("id", id);
-                                    Log.e(TAG, "NoteActivity: 我发出了删除信息"+2);
+                                    intent.putExtra("object_id", old_object_id);
+                                    Log.e(TAG, "NoteActivity: 我发出了删除信息" + 2);
                                     setResult(RESULT_OK, intent);
                                 }
                                 finish();
@@ -199,6 +201,7 @@ public class NoteActivity extends BaseActivity implements View.OnClickListener {
                 intent.putExtra("content", note_activity_content.getText().toString());
                 intent.putExtra("time", dateToStr());
                 intent.putExtra("id", id);
+                intent.putExtra("object_id", old_object_id);
                 intent.putExtra("title", note_activity_title.getText().toString());
                 intent.putExtra("tag", tag);
                 intent.putExtra("favorites", old_favorites);

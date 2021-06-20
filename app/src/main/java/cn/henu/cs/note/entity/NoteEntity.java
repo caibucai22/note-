@@ -4,13 +4,28 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class NoteEntity implements Serializable {
+import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
+import cn.henu.cs.note.utils.CRUD;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
+
+public class NoteEntity extends BmobObject implements Serializable {
     private long Id;
     private String title;
     private String content;
     private String time;
     private int tag;
     private int favorites;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
     private User author;
 
     public NoteEntity() {
@@ -30,7 +45,14 @@ public class NoteEntity implements Serializable {
         this.time = time;
         this.tag = tag;
     }
-
+    public NoteEntity(String title, String content, String time, int favorites, int tag, String objectId) {
+        this.setObjectId(objectId);
+        this.title = title;
+        this.content = content;
+        this.time = time;
+        this.favorites = favorites;
+        this.tag = tag;
+    }
     public NoteEntity(String title, String content, String time, int favorites, int tag) {
         this.title = title;
         this.content = content;
@@ -105,6 +127,25 @@ public class NoteEntity implements Serializable {
             result = title;
         }
         return result;
+    }
+
+    public  void deleteAllNoteFromBmob(){
+
+    }
+    public static long NotesNumber(){
+        CRUD crud = new CRUD(getApplicationContext());
+        crud.open();
+        long num = crud.getAllNoteNum();
+        crud.close();
+        return num;
+    }
+
+    public static long FavoriteNotesNumber(){
+        CRUD crud = new CRUD(getApplicationContext());
+        crud.open();
+        long num = crud.getAllFavoritesNoteNum();
+        crud.close();
+        return num;
     }
 
 }

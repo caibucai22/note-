@@ -64,14 +64,13 @@ public class LoginActivity extends AppCompatActivity {
         pwdImageBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showPassword = !showPassword;
+                pwdImageBut.setSelected(showPassword);
                 if (showPassword) {
-                    showPassword = false;
                     userPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-                    showPassword = true;
                     userPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                pwdImageBut.setSelected(!showPassword);
             }
         });
         //3.记住密码
@@ -87,41 +86,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
-                //获得用户输入的用户名或者密码
-//                final User userLogin = new User();
-//                userLogin.setUsername(userNameS);
-//                userLogin.setPassword(userPwdS);
-//                ProgressDialog pd = new ProgressDialog(LoginActivity.this, ProgressDialog.STYLE_SPINNER);
-//                pd.setTitle("登录");
-//                pd.setMessage("正在登录请稍等...");
-//                pd.setIndeterminate(false);
-//                pd.setCancelable(false);
-//                pd.show();
-//                userLogin.login(new SaveListener<User>() {
-//                    @Override
-//                    public void done(User user, BmobException e) {
-//                        if (e == null) {
-//                            //用户输入的账号密码正确  记住密码
-//                            editor = sharedPreferences.edit();
-//                            if (rememberCheckBox.isChecked()) {
-//                                editor.putBoolean("isRemember", true);
-//                                editor.putString("username", userNameS);
-//                                editor.putString("password", userPwdS);
-//                            } else {
-//                                editor.clear();
-//                            }
-//                            editor.putBoolean("isLogin", true);
-//                            editor.commit();
-//                            pd.dismiss();
-//                            navigateTo(MainActivity.class);
-//                            showToast(user.getUsername() + "登陆成功");
-//                            finish();
-//                        } else {
-//                            pd.dismiss();
-//                            showToast("登陆失败! 错误代码:" + e.getErrorCode());
-//                        }
-//                    }
-//                });
             }
         });
         //5.注册 注册按钮监听器

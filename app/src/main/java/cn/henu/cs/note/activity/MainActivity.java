@@ -1,6 +1,9 @@
 package cn.henu.cs.note.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -34,6 +38,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private SharedPreferences sharedPreferences;
 
+    MyReceiver receiver = new MyReceiver();
+    IntentFilter filter = new IntentFilter();
 
     @Override
     protected int initLayout() {
@@ -72,6 +78,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initData() {
+
+        filter.addAction(INTENT_FILTER);
+        registerReceiver(receiver, filter);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -161,5 +170,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
+    public final static String INTENT_FILTER = "change_fragment";
+    public final static String INTENT_NAME = "OperationCode";
+    public final static String GO_TO_HOME = "home";
+    public final static String GO_TO_MY_LOVE = "love";
+
+    private class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getStringExtra(INTENT_NAME)){
+                case GO_TO_HOME:
+                    myViewPager2.setCurrentItem(0);
+                    iv_Current = iv_home;
+                    t_Current = t_home;
+                    break;
+                case GO_TO_MY_LOVE:
+                    myViewPager2.setCurrentItem(1);
+                    iv_Current = iv_favorites;
+                    t_Current = t_favorites;
+                    break;
+                default:
+                    break;
+            }
+            iv_Current.setSelected(true);
+            t_Current.setTextColor(ContextCompat.getColor(context, R.color.blue));
+        }
+
     }
 }

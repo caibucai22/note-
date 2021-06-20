@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -22,7 +23,8 @@ public class RegisterActivity extends BaseActivity {
     private ImageView regPwdShowBut1, regPwdShowBut2;
     private EditText userName, userPwd1, userPwd2;//userPwd1是用户输入的密码，  userPwd2是确认密码
     private EditText phoneNum, securityCode;
-    private Boolean isSelected = false;
+    private Boolean isSelected1 = false;
+    private Boolean isSelected2 = false;
     String uname, pwd1, pwd2, pnum, scode;//用于获取用户输入
     String popInfor = "";//提示信息
     String trueSCode;//真正的验证码
@@ -53,27 +55,26 @@ public class RegisterActivity extends BaseActivity {
         regPwdShowBut1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSelected) {
-                    isSelected = false;
+                isSelected1 = !isSelected1;
+                regPwdShowBut1.setSelected(isSelected1);
+                if (isSelected1) {
                     userPwd1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-                    isSelected = true;
                     userPwd1.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                regPwdShowBut1.setSelected(!isSelected);
+
             }
         });
         regPwdShowBut2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSelected) {
-                    isSelected = false;
+                isSelected2 = !isSelected2;
+                regPwdShowBut2.setSelected(isSelected2);
+                if (isSelected2) {
                     userPwd2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
-                    isSelected = true;
                     userPwd2.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                regPwdShowBut2.setSelected(!isSelected);
             }
         });
 
@@ -101,15 +102,18 @@ public class RegisterActivity extends BaseActivity {
                             if (e == null) {
                                 pd.dismiss();
                                 showToast("注册成功");
+                                //注册成功跳转回登陆界面
+                                navigateTo(LoginActivity.class);
+                                finish();
                             } else {
                                 pd.dismiss();
-                                showToast("注册失败! 错误代码:"+ e.getErrorCode());
+                                if(e.getErrorCode()==202){
+                                    showToast("用户名已存在！");
+                                }
+                                else showToast("注册失败! 错误代码:" + e.getErrorCode());
                             }
                         }
                     });
-                    //注册成功跳转回登陆界面
-                    navigateTo(LoginActivity.class);
-                    finish();
                 } else {
                     popInfor.replace(" ", "");
                     showToast(popInfor);

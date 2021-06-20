@@ -16,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import cn.henu.cs.note.R;
 
 public class SplashActivity extends AppCompatActivity {
-    private int DELAYED_TIME = 5;
+    private int DELAYED_TIME = 6;
     private TextView jumpText;
+    private Boolean isInterrupt = false;
+    private int count = 0;
+    Thread thread;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,25 +29,32 @@ public class SplashActivity extends AppCompatActivity {
 
         jumpText = findViewById(R.id.jumpText);
 
-        new Thread() {
+        thread = new Thread(new Runnable() {
+            @Override
             public void run() {
                 while (DELAYED_TIME >= 0) {
                     try {
+                        if(isInterrupt==true)
+                            break;
+                        Log.e("TAG", "run: "+DELAYED_TIME );
                         jumpText.setText("    剩余" + DELAYED_TIME + "秒跳转");
-                        DELAYED_TIME--;
-                        Thread.sleep(1000);
+                        count++;
+                        if(count%10==0)
+                            DELAYED_TIME--;
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
                 jumpActivity();
             }
-        }.start();
+        });
+        thread.start();
     }
 
 
     public void jump(View view) {
-        DELAYED_TIME = -1;
+        isInterrupt = true;
     }
 
     public void jumpActivity() {

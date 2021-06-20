@@ -26,10 +26,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.henu.cs.note.R;
 import cn.henu.cs.note.activity.NoteActivity;
 import cn.henu.cs.note.adapter.NoteAdapter;
 import cn.henu.cs.note.entity.NoteEntity;
+import cn.henu.cs.note.entity.User;
 import cn.henu.cs.note.utils.CRUD;
 import cn.henu.cs.note.utils.NoteDataBase;
 import cn.henu.cs.note.utils.RecyclerItemClickListener;
@@ -86,29 +91,44 @@ public class favorites_Fragment extends Fragment {
         deleteAll.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Dialog deleteAllDialog = new AlertDialog.Builder(context)
-                        .setMessage("确定取消收藏全部笔记?")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                CRUD op = new CRUD(context);
-                                op.open();
-                                for (int i=0; i<favoritesNotes.size(); i++) {
-                                    favoritesNotes.get(i).setFavorites(0);
-                                    op.updateNote(favoritesNotes.get(i));
+                if (NoteEntity.FavoriteNotesNumber() > 0) {
+                    Dialog deleteAllDialog = new AlertDialog.Builder(context)
+                            .setMessage("确定取消收藏全部笔记?")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    CRUD op = new CRUD(context);
+                                    op.open();
+                                    for (int i = 0; i < favoritesNotes.size(); i++) {
+                                        favoritesNotes.get(i).setFavorites(0);
+                                        op.updateNote(favoritesNotes.get(i));
+                                        favoritesNotes.get(i).update(new UpdateListener() {
+                                            @Override
+                                            public void done(BmobException e) {
+                                                if (e == null) {
+                                                    Log.e("TAG", "done: 数据更新成功");
+                                                } else {
+                                                    Log.e("BMOB", e.toString());
+                                                    Log.e("TAG", "done: 数据更新失败");
+                                                }
+                                            }
+                                        });
+                                    }
+                                    op.close();
+                                    refreshRecyclerView();
+                                    Toast.makeText(context, "全部取消收藏", Toast.LENGTH_SHORT).show();
                                 }
-                                op.close();
-                                refreshRecyclerView();
-                                Toast.makeText(context, "全部取消收藏", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "取消收藏操作取消！", Toast.LENGTH_SHORT).show();
-                            }
-                        }).create();
-                deleteAllDialog.show();
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(context, "取消收藏操作取消！", Toast.LENGTH_SHORT).show();
+                                }
+                            }).create();
+                    deleteAllDialog.show();
+                } else {
+                    Toast.makeText(context, "没有收藏任何笔记", Toast.LENGTH_SHORT).show();
+                }
                 return false;
             }
         });
@@ -134,6 +154,7 @@ public class favorites_Fragment extends Fragment {
                 intent.putExtra("tag", curNote.getTag());
                 intent.putExtra("mode", 3);
                 intent.putExtra("favorites", curNote.getFavorites());
+                intent.putExtra("object_id", curNote.getObjectId());
                 startActivityForResult(intent, 1);
             }
 
@@ -147,6 +168,17 @@ public class favorites_Fragment extends Fragment {
                         CRUD op = new CRUD(context);
                         switch (which) {
                             case 0://删除第position个笔记
+                                favoritesNotes.get(position).delete(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            Log.e("TAG", "done: 数据删除成功");
+                                        } else {
+                                            Log.e("BMOB", e.toString());
+                                            Log.e("TAG", "done: 数据删除失败");
+                                        }
+                                    }
+                                });
                                 op.open();
                                 op.removeNote(favoritesNotes.get(position));
                                 op.close();
@@ -156,6 +188,17 @@ public class favorites_Fragment extends Fragment {
                                 op.open();
                                 NoteEntity newNote = favoritesNotes.get(position);
                                 newNote.setFavorites(0);
+                                newNote.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            Log.e("TAG", "done: 数据更新成功");
+                                        } else {
+                                            Log.e("BMOB", e.toString());
+                                            Log.e("TAG", "done: 数据更新失败");
+                                        }
+                                    }
+                                });
                                 op.updateNote(newNote);
                                 op.close();
                                 Toast.makeText(context, "取消成功", Toast.LENGTH_SHORT).show();
@@ -186,32 +229,80 @@ public class favorites_Fragment extends Fragment {
                 String title = data.getStringExtra("title");
                 int tag = data.getExtras().getInt("tag", 1);
                 int favorites = data.getIntExtra("favorites", 0);
-                NoteEntity newNote = new NoteEntity(title, content, time, favorites,tag);
+                String object_id = data.getStringExtra("object_id");
 
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites, tag, object_id);
                 newNote.setId(note_Id);
+                newNote.update(new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            Log.e("TAG", "done: 数据更新成功");
+                        } else {
+                            Log.e("BMOB", e.toString());
+                            Log.e("TAG", "done: 数据更新失败");
+                        }
+                    }
+                });
                 CRUD op = new CRUD(context);
                 op.open();
                 op.updateNote(newNote);
                 op.close();
             }
+        } else if (returnMode == 0) {
+            String content = data.getExtras().getString("content");
+            if (!content.isEmpty()) {
+
+                String time = data.getExtras().getString("time");
+                String title = data.getStringExtra("title");
+                int tag = data.getExtras().getInt("tag", 1);
+                int favorites = data.getIntExtra("favorites", 0);
+                NoteEntity newNote = new NoteEntity(title, content, time, favorites, tag);
+
+                newNote.setAuthor(BmobUser.getCurrentUser(User.class));
+                newNote.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null) {
+                            Log.e("TAG", "done: 数据保存云端成功");
+                            newNote.setObjectId(s);
+                            CRUD op = new CRUD(context);
+                            op.open();
+                            op.addNote(newNote);
+                            Log.e("TAG", "done: 数据保存本地成功");
+                            op.close();
+                            Log.e(TAG, "onActivityResult: refreshRecyclerView");
+                            refreshRecyclerView();
+                        } else {
+                            Log.e("BMOB", e.toString());
+                        }
+                    }
+                });
+            }
+        } else if (returnMode == 2) { // delete
+            NoteEntity curNote = new NoteEntity();
+            String object_id = data.getExtras().getString("object_id");
+            curNote.setId(note_Id);
+            curNote.setObjectId(object_id);
+            curNote.delete(object_id, new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if (e == null) {
+                        Log.e("TAG", "done: 数据删除成功");
+                    } else {
+                        Log.e("BMOB", e.toString());
+                        Log.e("TAG", "done: 数据删除失败");
+                    }
+                }
+            });
+            CRUD op = new CRUD(context);
+            op.open();
+            op.removeNote(curNote);
+            op.close();
+            Log.e(TAG, "onActivityResult: refreshRecyclerView");
+            refreshRecyclerView();
+        } else {
         }
-//        else if (returnMode == 0) {
-//            String content = data.getExtras().getString("content");
-//            if (!content.isEmpty()) {
-//
-//                String time = data.getExtras().getString("time");
-//                String title = data.getStringExtra("title");
-//                int tag = data.getExtras().getInt("tag", 1);
-//
-//                NoteEntity newNote = new NoteEntity(title, content, time, tag);
-//                CRUD op = new CRUD(context);
-//                op.open();
-//                op.addNote(newNote);
-//                op.close();
-//            }
-//
-//        } else {
-//        }
         refreshRecyclerView();
         super.onActivityResult(requestCode, resultCode, data);
     }
