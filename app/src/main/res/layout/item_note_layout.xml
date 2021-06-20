@@ -12,7 +12,7 @@
         android:id="@+id/item_note_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/item_note_backgroup"
+        android:background="?attr/item_note_background"
         android:orientation="vertical"
         android:padding="10dp">
 

@@ -27,15 +27,16 @@
 
         <item name="testcolor">@color/teal_200</item>
 
+        <item name="EditText_text_color">@color/black</item>
         <item name="picture_color">@color/grey9</item>
         <item name="text_color">@color/black</item>
-        <item name="main_layout_backgroud">@color/white</item>
-        <item name="whole_backgroud">@color/grey</item>
-        <item name="bottom_layout_backgroud">@color/grey</item>
+        <item name="main_layout_background">@color/white</item>
+        <item name="whole_background">@color/white</item>
+        <item name="bottom_layout_background">@color/grey</item>
         <item name="EditText_background_color">@color/white</item>
-        <item name="EditText_text_color">@color/grey</item>
-        <item name="write_layout_backgroup">@color/grey</item>
-        <item name="item_note_backgroup">@color/white</item>
+        <item name="EditText_text_hint_color">@color/grey</item>
+        <item name="write_layout_background">@color/grey</item>
+        <item name="item_note_background">@color/white</item>
         <item name="item_note_title">@color/black</item>
         <item name="backPic">@drawable/ic_baseline_arrow_white_24</item>
     </style>
@@ -66,16 +67,17 @@
         <item name="colorSwitchThumbNormal">@color/white</item>
         <item name="testcolor">@color/black</item>
 
+        <item name="EditText_text_hint_color">@color/grey</item>
         <item name="picture_color">@color/grey9</item>
         <item name="text_color">@color/grey</item>
-        <item name="main_layout_backgroud">@color/black</item>
-        <item name="whole_backgroud">@color/black</item>
-        <item name="bottom_layout_backgroud">@color/black</item>
+        <item name="main_layout_background">@color/black</item>
+        <item name="whole_background">@color/black</item>
+        <item name="bottom_layout_background">@color/black</item>
         <item name="EditText_background_color">@color/black</item>
         <item name="EditText_text_color">@color/grey9</item>
-        <item name="write_layout_backgroup">@color/black</item>
+        <item name="write_layout_background">@color/black</item>
         <item name="main_home_photo"></item>
-        <item name="item_note_backgroup">@color/black</item>
+        <item name="item_note_background">@color/black</item>
         <item name="item_note_title">@color/grey</item>
     </style>
 </resources>
