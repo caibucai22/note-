@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/DayTheme"
-    tools:context=".activity.set">
+    tools:context=".activity.set"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/setActivityToolbar"

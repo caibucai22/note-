@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragment.favorites_Fragment">
+    tools:context=".fragment.favorites_Fragment"
+    android:background="?attr/whole_backgroud">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/favorites_toolbar"

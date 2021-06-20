@@ -55,8 +55,10 @@ public class NoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             vh.picId.setImageResource(R.mipmap.note_type_1);
         } else if (noteEntity.getTag() == 2) {
             vh.picId.setImageResource(R.mipmap.note_type_2);
+
         } else if (noteEntity.getTag() == 3) {
             vh.picId.setImageResource(R.mipmap.note_type_3);
+
         }
         vh.tvTitle.setText(noteEntity.getTitle());
         vh.tvContent.setText(noteEntity.getContent());

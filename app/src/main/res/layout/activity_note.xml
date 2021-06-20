@@ -5,22 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/write_layout_backgroup"
     tools:context=".activity.NoteActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/note_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/write_layout_backgroup"
         android:elevation="4dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="?attr/titleColor"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/write_layout_backgroup">
 
         <EditText
             android:id="@+id/note_activity_title"
@@ -28,9 +29,9 @@
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="15dp"
-            android:background="@null"
+            android:background="?attr/write_layout_backgroup"
             android:hint="请输入标题"
-            android:textColor="@color/black"
+            android:textColor="?attr/EditText_text_color"
             android:textColorHint="@color/text_gray"
             android:textSize="30sp" />
 
@@ -61,7 +62,8 @@
         android:layout_height="60dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:background="?attr/write_layout_backgroup">
 
 
         <ImageView

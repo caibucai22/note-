@@ -46,6 +46,19 @@
         <item name="colorControlActivated">@color/black</item>
         <item name="colorSwitchThumbNormal">@color/black</item>
         <item name="menu_alarm">@drawable/ic_alarm_black_24</item>
+
+
+
+        <item name="picture_color">@color/grey9</item>
+        <item name="text_color">@color/black</item>
+        <item name="main_layout_backgroud">@color/white</item>
+        <item name="whole_backgroud">@color/grey</item>
+        <item name="bottom_layout_backgroud">@color/grey</item>
+        <item name="EditText_background_color">@color/white</item>
+        <item name="EditText_text_color">@color/grey</item>
+        <item name="write_layout_backgroup">@color/grey</item>
+        <item name="item_note_backgroup">@color/white</item>
+        <item name="item_note_title">@color/black</item>
     </style>
     -- 暗色主题-->
 
@@ -70,5 +83,18 @@
         <item name="tvSubColor">@color/greyC</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorSwitchThumbNormal">@color/white</item>
+
+
+        <item name="picture_color">@color/grey9</item>
+        <item name="text_color">@color/grey</item>
+        <item name="main_layout_backgroud">@color/black</item>
+        <item name="whole_backgroud">@color/black</item>
+        <item name="bottom_layout_backgroud">@color/black</item>
+        <item name="EditText_background_color">@color/black</item>
+        <item name="EditText_text_color">@color/grey9</item>
+        <item name="write_layout_backgroup">@color/black</item>
+        <item name="main_home_photo"></item>
+        <item name="item_note_backgroup">@color/black</item>
+        <item name="item_note_title">@color/grey</item>
     </style>
 </resources>

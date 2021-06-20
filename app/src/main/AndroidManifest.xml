@@ -23,7 +23,7 @@
         android:theme="@style/DayTheme">
         <activity android:name=".activity.set"></activity>
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.MainActivity"
             android:label="Note++">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
             android:name=".activity.LoginActivity"
             android:label="登陆界面" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.SplashActivity"
             android:label="Home" />
         <activity
             android:name=".activity.RegisterActivity"
