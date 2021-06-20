@@ -12,7 +12,7 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/toolbar_color"
         android:elevation="4dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/popupTheme"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="?attr/text_color"
             android:textSize="20dp" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
@@ -48,6 +48,7 @@
                 android:layout_margin="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
+                android:layout_gravity="bottom"
                 android:background="@null"
                 android:hint="快来编辑你的个性签名吧"
                 android:textColorHint="?attr/EditText_text_hint_color"
@@ -100,6 +101,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="篇"
                         android:textSize="15dp"
                         android:textColor="?attr/text_color"/>
@@ -137,6 +139,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="篇"
                         android:textSize="15dp"
                         android:textColor="?attr/text_color"/>

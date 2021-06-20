@@ -55,7 +55,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:src="@drawable/arrow_grey"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:gravity="right"
                 android:layout_gravity="center"
 

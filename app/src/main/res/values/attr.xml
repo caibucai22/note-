@@ -19,6 +19,7 @@
     <attr name="addPlanTag" format="string"/>
     <attr name="toolbarTheme" format="string"/>
 
+    <attr name="toolbar_color" format="string"/>
     <attr name="backPic" format="string"/>
     <attr name="EditText_background_color" format="color"/>
     <attr name="EditText_text_color" format="color"/>

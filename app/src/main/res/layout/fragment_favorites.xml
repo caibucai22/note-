@@ -14,7 +14,7 @@
         app:titleTextColor="?attr/titleColor"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/toolbar_color"
         android:elevation="4dp"
         android:theme="?attr/whole_background" >
         <TextView
@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:textSize="20sp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="?attr/text_color"
             />
     </androidx.appcompat.widget.Toolbar>
 
