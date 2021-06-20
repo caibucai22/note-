@@ -403,7 +403,6 @@ public class home_fragment extends Fragment {
         } else if (returnMode == 0) {
             String content = data.getExtras().getString("content");
             if (!content.isEmpty()) {
-
                 String time = data.getExtras().getString("time");
                 String title = data.getStringExtra("title");
                 int tag = data.getExtras().getInt("tag", 1);

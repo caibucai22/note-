@@ -11,6 +11,7 @@ import cn.henu.cs.note.utils.CRUD;
 import static cn.bmob.v3.Bmob.getApplicationContext;
 
 public class NoteEntity extends BmobObject implements Serializable {
+
     private long Id;
     private String title;
     private String content;

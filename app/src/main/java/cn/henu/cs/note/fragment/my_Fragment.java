@@ -168,16 +168,17 @@ public class my_Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.listView1:
+
             case R.id.to_home_fragment:
                 Intent intent0 = new Intent(MainActivity.INTENT_FILTER);
                 intent0.putExtra(MainActivity.INTENT_NAME,MainActivity.GO_TO_HOME);
                 context.sendBroadcast(intent0);
                 break;
+            case R.id.listView1:
             case R.id.to_my_love_fragment:
-                Intent intent1= new Intent(MainActivity.INTENT_FILTER);
-                intent1.putExtra(MainActivity.INTENT_NAME,MainActivity.GO_TO_MY_LOVE);
-                context.sendBroadcast(intent1);
+                Intent intent2= new Intent(MainActivity.INTENT_FILTER);
+                intent2.putExtra(MainActivity.INTENT_NAME,MainActivity.GO_TO_MY_LOVE);
+                context.sendBroadcast(intent2);
                 break;
             case R.id.listView3:
                 Intent intent = new Intent(context, SettingsActivity.class);
