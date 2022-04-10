@@ -49,6 +49,12 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="cn.henu.cs.note.BmobContentProvider" />
+
+<!--        <receiver android:name="myreceiver">-->
+<!--            <intent-filter>-->
+<!--                <action></action>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

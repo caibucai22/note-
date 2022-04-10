@@ -49,6 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Intent intent = new Intent(getContext(), set.class);
                 startActivity(intent);
 
+
                 if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 } else {
