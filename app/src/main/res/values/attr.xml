@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="lvBackground" format="color" />
+    <attr name="tvBackground" format="color" />
+    <attr name="menu_search" format="string"/>
+    <attr name="menu_delete_all" format="string"/>
+    <attr name="menu_refresh" format="string" />
+    <attr name="menu_delete" format="string"/>
+    <attr name="menu_setting" format="string"/>
+    <attr name="menu_finish_editing" format="string"/>
+    <attr name="menu_alarm" format="string"/>
+    <attr name="titleColor" format="color"/>
+    <attr name="tvMainColor" format="color"/>
+    <attr name="tvSubColor" format="color"/>
+    <attr name="settingIcon" format="string"/>
+    <attr name="spinnerArrow" format="string"/>
+    <attr name="renewIcon" format="string"/>
+    <attr name="removeTag" format="string"/>
+    <attr name="addTag" format="string"/>
+    <attr name="addPlanTag" format="string"/>
+    <attr name="toolbarTheme" format="string"/>
+
+    <attr name="toolbar_color" format="string"/>
+    <attr name="backPic" format="string"/>
+    <attr name="EditText_background_color" format="color"/>
+    <attr name="EditText_text_color" format="color"/>
+    <attr name="EditText_text_hint_color" format="color"/>
+    <attr name="write_layout_background" format="string"/>
+    <attr name="main_home_photo" format="string"/>
+    <attr name="main_home_text" format="color"/>
+    <attr name="testcolor" format="color"/>
+    <attr name="picture_color" format="string"/>
+    <attr name="text_color" format="color"/>
+    <attr name="main_layout_background" format="string"/>
+    <attr name="whole_background" format="string"/>
+    <attr name="bottom_layout_background" format="string"/>
+    <attr name="item_note_background" format="color"/>
+    <attr name="item_note_title" format="color"/>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/favorites_menu_search"
+        android:icon="?attr/menu_search"
+        android:orderInCategory="100"
+        android:title="搜索"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/favorites_menu_deleteAll"
+        android:icon="?attr/menu_delete_all"
+        android:orderInCategory="100"
+        android:title="删除所有"
+        app:showAsAction="always" />
+</menu>

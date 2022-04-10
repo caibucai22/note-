@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/setActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/toolbar_color"
+        android:elevation="4dp"
+        android:theme="?attr/whole_background"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="设置界面"
+        app:titleTextColor="?attr/text_color" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="黑夜模式"
+
+        />
+</LinearLayout>
