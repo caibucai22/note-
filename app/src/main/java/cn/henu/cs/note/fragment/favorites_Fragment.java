@@ -139,8 +139,6 @@ public class favorites_Fragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         favoritesRecyclerView.setLayoutManager(linearLayoutManager);
         favoritesAdapter = new NoteAdapter(context, favoritesNotes);
-
-        refreshRecyclerView();
         favoritesRecyclerView.setAdapter(favoritesAdapter);
         favoritesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, favoritesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
